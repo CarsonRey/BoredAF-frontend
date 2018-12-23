@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Activity from '../components/Activity'
 import Choice from '../components/Choice'
+import Filter from '../components/Filter'
 
 class ActivityContainer extends Component {
 
   state = {
     activity: {},
     filter: 'all',
-    seenActivities: []
+    seenActivities: [],
+    savedActivities:[],
+    declinedActivities: []
   }
 
   componentDidMount(){
@@ -22,10 +25,19 @@ class ActivityContainer extends Component {
   }
 
   render(){
+    console.log(this.state.seenActivities)
     return(
       <div className="ActivityContainer">
+        <div className="tab">
+          <button className="tablinks" onClick={(event) => {
+            (event.target).toggleClass("active")
+          } } name="all" >All</button>
+          <button className="tablinks" onClick={(event) => console.log(event.target.name)} name="nearby">Nearby</button>
+          <button className="tablinks" onClick={(event) => console.log(event.target.name)} name="free" >Free</button>
+        </div>
         <Activity activity={this.state.activity} />
         <Choice />
+        <Filter />
       </div>
     )
   }

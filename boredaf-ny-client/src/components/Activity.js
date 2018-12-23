@@ -19,11 +19,11 @@ class Activity extends Component {
 
   render(){
     return(
-      <div className="activity">
+      <div draggable="true" className="activity">
         <h5>{this.props.activity.activity}</h5>
         <h5>{this.props.activity.type}</h5>
         <h5>{this.props.activity.participants}</h5>
-        <h5>{this.props.activity.link && this.props.activity.link}</h5>
+        <a href={this.props.activity.link && this.props.activity.link} target="_blank" rel="noopener noreferrer">{this.props.activity.link && this.props.activity.link}</a>
         <h5>{this.props.activity.price === 0 ? "Free" : "May cost some money"}</h5>
       </div>
     )

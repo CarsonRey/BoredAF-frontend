@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 class Activity extends Component {
 
 
+  // state = {
+  //
+  // }
+
 
 // tie filter to state so that we can pass it into our fetch call, have a default filter upon sign-in that will show all activities
 //

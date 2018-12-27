@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 
 class Activity extends Component {
 
+  state = {
 
-  // state = {
-  //
-  // }
+  }
 
 
 // tie filter to state so that we can pass it into our fetch call, have a default filter upon sign-in that will show all activities
@@ -20,11 +19,19 @@ class Activity extends Component {
 //   "key": "3943506"
 // }
 
+  sample = (array) => {
+    return array[Math.floor ( Math.random() * array.length )]
+  }
+
+
+
 
   render(){
+    const suggest = ["Do you want to...?", "How about you...? ", "Why don't you try to...? ", "Give... a go!"]
+
     return(
       <div draggable="true" className="activity">
-        <h5>{this.props.activity.activity}</h5>
+        <h5>{this.sample(suggest).split("...").join(` ${this.props.activity.activity}`)}</h5>
         <h5>{this.props.activity.type}</h5>
         <h5>{this.props.activity.participants}</h5>
         <a href={this.props.activity.link && this.props.activity.link} target="_blank" rel="noopener noreferrer">{this.props.activity.link && this.props.activity.link}</a>

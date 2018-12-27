@@ -17,8 +17,22 @@ class ActivityContainer extends Component {
     this.getNewActivity()
   }
 
+  changeFilter = () => {
+
+  }
+
+  checkFilter = () => {
+    if (this.state.filter === 'all'){
+      return ''
+    } else if (this.state.filter === 'free') {
+      return '?price=0.0'
+    } else {
+      return `?type=${this.state.filter}`
+    }
+  }
+
   getNewActivity(){
-    fetch('https://www.boredapi.com/api/activity')
+    fetch(`https://www.boredapi.com/api/activity${this.checkFilter()}`)
     .then(response => response.json())
     .then(activity => {
       this.setState({
@@ -51,14 +65,9 @@ class ActivityContainer extends Component {
 
     return(
       <div className="ActivityContainer">
-        <div className="tab">
-          <button className="tablinks" onClick={(event) => console.log(event.target.name) } name="all" >All</button>
-          <button className="tablinks" onClick={(event) => console.log(event.target.name)} name="nearby">Nearby</button>
-          <button className="tablinks" onClick={(event) => console.log(event.target.name)} name="free" >Free</button>
-        </div>
+        <Filter />
         <Activity activity={this.state.activity} />
         <Choice makeChoice={this.makeChoice}/>
-        <Filter />
       </div>
     )
   }

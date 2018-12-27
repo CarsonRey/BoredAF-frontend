@@ -7,7 +7,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <p className="appName">bored af</p>
+        <div className="appNameContainer">
+          <div className="appName">bored af</div>
+          <div className="shadow"></div>
+        </div>
         <ActivityContainer />
       </div>
     );

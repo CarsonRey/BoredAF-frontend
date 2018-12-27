@@ -36,6 +36,51 @@ html,body {padding:0; margin:0; }
   transform: scale(20);
 }
 
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+.popup .popuptext{
+   visibility: hidden;
+   width: 100px;
+   background-color: #555;
+   color: #fff;
+   text-align: center;
+   border-radius: 6px;
+   font-size: 10px;
+   position: absolute;
+   z-index: 1;
+   bottom: 150%;
+   /* left: 50%; */
+   /* margin: -5px 20px 1px -4.5px; */
+   padding: .2px 0px .7px 0px;
+   /* top: 99%; */
+}
+
+/* .popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 70%;
+  margin-left: -3px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+} */
+
+
+.popup .showPop {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
 .settings-btn{
   width: 75%;
   height: 50%;
@@ -100,7 +145,10 @@ html,body {padding:0; margin:0; }
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  max-width: 719px;
+  height: 50px;
+  overflow-x: scroll;
+  white-space: nowrap;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
@@ -143,7 +191,7 @@ html,body {padding:0; margin:0; }
 }
 
 .try {
-  box-shadow: 0px 0px 0px 5px green;
+  box-shadow: 0px 0px 0px 5px #d5d5d5;
 }
 
 .try:hover{
@@ -153,13 +201,12 @@ html,body {padding:0; margin:0; }
 
 
 .bye {
-  box-shadow: 0px 0px 0px 5px red;
+  box-shadow: 0px 0px 0px 5px #d5d5d5;
 }
 
 .bye:hover{
   /* border-width: 10px; */
   box-shadow: 0px 0px 0px 10px pink;
-  content: "Holler"
 }
 
 .slider{
@@ -174,10 +221,12 @@ html,body {padding:0; margin:0; }
   transition: opacity .2s;
 }
 
-.appName{
-  font-family: Sketch3D;
-  font-size: 50px;
+
+.navContainer{
+    display: flex;
+    justify-content: space-around;
 }
+
 
 .appNameContainer{
   animation-name: spin, depth;
@@ -185,11 +234,17 @@ html,body {padding:0; margin:0; }
   animation-iteration-count: infinite;
   animation-duration: 5s;
   text-align: center;
-  display: flex;
+
   flex-direction: column;
-  padding: 30px 0px;
+  /* padding: 30px 0px; */
+  width: 30%;
+  margin: auto;
 }
 
+.appName{
+  font-family: Sketch3D;
+  font-size: 50px;
+}
 .shadow{
     content:'';
     display: block;
@@ -206,21 +261,12 @@ html,body {padding:0; margin:0; }
 
 }
 
-@keyframes spin {
-  from { transform: rotateY(0deg); }
-  to { transform: rotateY(-360deg); }
-}
-
 @font-face{
   font-family: 'Sketch3D';
   src: local('Sketch3D'); /* IE9 Compat Modes */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
 }

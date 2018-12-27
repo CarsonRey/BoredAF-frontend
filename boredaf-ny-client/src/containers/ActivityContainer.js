@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import Activity from '../components/Activity'
 import Choice from '../components/Choice'
 import Filter from '../components/Filter'
+import Form from '../components/Form'
 
 class ActivityContainer extends Component {
 
   state = {
     activity: {},
-    filter: 'all',
+    filter: null,
     seenActivities: [],
     savedActivities:[],
     declinedActivities: []
@@ -17,12 +18,14 @@ class ActivityContainer extends Component {
     this.getNewActivity()
   }
 
-  changeFilter = () => {
-
+  changeFilter = (filter) => {
+    this.setState({
+      filter: filter
+    }, this.getNewActivity())
   }
 
   checkFilter = () => {
-    if (this.state.filter === 'all'){
+    if (this.state.filter === null){
       return ''
     } else if (this.state.filter === 'free') {
       return '?price=0.0'
@@ -59,20 +62,28 @@ class ActivityContainer extends Component {
   }
 
   render(){
-    console.log("seen", this.state.seenActivities)
-    console.log("bye", this.state.declinedActivities)
-    console.log("saved", this.state.savedActivities)
+    // console.log("seen", this.state.seenActivities)
+    // console.log("bye", this.state.declinedActivities)
+    // console.log("saved", this.state.savedActivities)
+    console.log("in ActivityContainer filter is", this.state.filter)
+
+
 
     return(
-      <div className="ActivityContainer">
-        <Filter />
-        <Activity activity={this.state.activity} />
-        <Choice makeChoice={this.makeChoice}/>
-      </div>
+      <React.Fragment>
+        <div className="ActivityContainer">
+          <Filter changeFilter={this.changeFilter}/>
+          <Activity activity={this.state.activity} />
+          <Choice makeChoice={this.makeChoice}/>
+        </div>
+        <Form/>
+      </React.Fragment>
     )
   }
 
 
 }
+
+// when a user clicks on the plus sign, the activity container should switch
 
 export default ActivityContainer;

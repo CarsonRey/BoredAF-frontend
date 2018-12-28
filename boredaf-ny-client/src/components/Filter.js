@@ -29,7 +29,7 @@ class Filter extends Component {
               {options.map((option) => <button className="tablinks" value={option} onClick={this.changeDropdown} >{option}</button>)}
             </div>
           </div>
-          <button className="tablinks" onClick={(event) => console.log(event.target.value)} value="nearby">Nearby</button>
+          {/* <button className="tablinks" onClick={(event) => console.log(event.target.value)} value="nearby">Nearby</button> */}
         </div>
 
       </div>

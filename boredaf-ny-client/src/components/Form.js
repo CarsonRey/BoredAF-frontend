@@ -35,7 +35,7 @@ class Form extends Component {
           <input className="input" type="submit" value="Add Activity"/> <br/>
 
           <Link to="/" onClick={()=> this.props.backToActivities()}>
-            <div className="navitem">cancel</div>
+            <div className="">cancel</div>
           </Link>
 
         </form>

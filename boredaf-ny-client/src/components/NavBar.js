@@ -1,10 +1,13 @@
 import React from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <BrowserRouter className="navContainer">
+    <div className="navContainer">
 
+      <Link className="link" to="/nearby">
+        <div className="navitem">nearby</div>
+      </Link>
 
       <div className="navbar">
 
@@ -13,8 +16,13 @@ const NavBar = () => {
         <div className="shadow"></div>
       </div>
 
+
       </div>
-    </BrowserRouter>
+
+      <Link className="link" to="/saved-activities">
+        <div className="navitem">saved</div>
+      </Link>
+    </div>
   );
 };
 

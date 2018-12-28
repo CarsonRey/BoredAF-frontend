@@ -73,7 +73,7 @@ class ActivityContainer extends Component {
         <div className="ActivityContainer">
           <Filter changeFilter={this.changeFilter}/>
           <Activity activity={this.state.activity} />
-          <Choice makeChoice={this.makeChoice}/>
+          <Choice newActivityForm={this.props.newActivityForm} makeChoice={this.makeChoice}/>
         </div>
       </React.Fragment>
     )

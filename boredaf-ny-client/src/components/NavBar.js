@@ -12,10 +12,8 @@ const NavBar = () => {
         <div className="appName">bored af</div>
         <div className="shadow"></div>
       </div>
-      {/* <Link to="/logout">
-        <li className="navitem">Logout</li>
-      </Link> */}
-</div>
+
+      </div>
     </BrowserRouter>
   );
 };

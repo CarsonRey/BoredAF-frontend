@@ -231,10 +231,10 @@ html,body {padding:0; margin:0; }
 
 
 .appNameContainer{
-  /* animation-name: spin, depth;
+  animation-name: spin, depth;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  animation-duration: 5s; */
+  animation-duration: 5s;
   text-align: center;
   flex-direction: column;
   padding: 30px 0px;

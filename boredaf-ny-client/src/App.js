@@ -4,24 +4,89 @@ import NavBar from './components/NavBar'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
 import Form from './components/Form'
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 
 import './App.css';
 
 class App extends Component {
+
+  state = {
+    user: null
+  }
+
+  signupFormSubmitHandler = (e, userInfo) => {
+    e.preventDefault();
+    this.createUser(userInfo);
+    this.props.history.push("/");
+  };
+
+  loginSubmitHandler = (e, userInfo) => {
+    e.preventDefault();
+    this.getUser(userInfo);
+    this.props.history.push("/");
+  };
+
+  createUser = (userInfo) => {
+    fetch("http://localhost:3000/api/v1/users/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accepts: "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          username: userInfo.signupUsername,
+          password: userInfo.signupPassword
+        }
+      })
+    })
+    .then(resp => resp.json())
+    .then(resp => {
+      localStorage.setItem("token", resp.jwt);
+      this.setState({
+        user: resp.user
+      });
+    });
+  }
+
+  getUser = (userInfo) => {
+    fetch("http://localhost:3000/api/v1/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accepts: "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          username: userInfo.loginUsername,
+          password: userInfo.loginPassword
+        }
+      })
+    })
+    .then(resp => resp.json())
+    .then(resp => {
+      localStorage.setItem("token", resp.jwt);
+      this.setState({
+        user: resp.user
+      });
+    });
+  }
+
+  newActivityForm = () => {
+    this.props.history.push("/new-activity")
+  }
+
+  backToActivities = () => {
+    this.props.history.push("/")
+  }
+
   render() {
     return (
 
       <div className="App">
         <NavBar/>
-        <BrowserRouter>
+        {/* <BrowserRouter> */}
         <Switch>
-          <Route
-              path="/activities"
-              render={() => (
-                <ActivityContainer/>
-              )}
-            />
           <Route
               path="/login"
               render={() => (
@@ -35,7 +100,7 @@ class App extends Component {
               path="/signup"
               render={() => (
                 <SignUpForm
-                  signupFormSubmitHandler={this.signupFormSubmitHandler}
+                  signupFormSubmitHandler={this.signupSubmitHandler}
                   handleCharacterClick={this.handleCharacterClick}
                 />
               )}
@@ -43,12 +108,18 @@ class App extends Component {
           <Route
               path="/new-activity"
               render={() => (
-                <Form/>
+                <Form backToActivities={this.backToActivities}/>
+              )}
+            />
+          <Route
+              path="/"
+              render={() => (
+                <ActivityContainer newActivityForm={this.newActivityForm} />
               )}
             />
           </Switch>
 
-        </BrowserRouter>
+        {/* </BrowserRouter> */}
 
       </div>
 
@@ -56,4 +127,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

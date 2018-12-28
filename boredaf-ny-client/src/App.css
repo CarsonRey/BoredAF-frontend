@@ -235,7 +235,7 @@ div{
 }
 
 .navitem{
-  background: dimgrey;
+  background: darkgrey;
   color: white;
   padding: 20px 28px;
   margin-top: 50px;
@@ -243,6 +243,12 @@ div{
   font-weight: bold;
   font-family: Palatino;
   font-size: 20px;
+}
+
+.navitem:hover{
+  background: lightgrey;
+  color: white;
+  animation: rainbow 6s infinite;
 }
 
 .link{

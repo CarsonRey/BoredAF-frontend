@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+class NavBar extends React.Component{
+  render(){
+    console.log("the current container is ", this)
   return (
     <div className="navContainer">
 
@@ -16,7 +18,6 @@ const NavBar = () => {
         <div className="shadow"></div>
       </div>
 
-
       </div>
 
       <Link className="link" to="/saved-activities">
@@ -24,6 +25,7 @@ const NavBar = () => {
       </Link>
     </div>
   );
+}
 };
 
 

@@ -4,6 +4,8 @@ import NavBar from './components/NavBar'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
 import Form from './components/Form'
+import SavedActivities from './components/SavedActivities'
+import Nearby from './components/Nearby'
 import { Switch, Route, withRouter } from "react-router-dom";
 
 import './App.css';
@@ -109,6 +111,18 @@ class App extends Component {
               path="/new-activity"
               render={() => (
                 <Form backToActivities={this.backToActivities}/>
+              )}
+            />
+          <Route
+              path="/saved-activities"
+              render={() => (
+                <SavedActivities />
+              )}
+            />
+          <Route
+              path="/nearby"
+              render={() => (
+                <Nearby />
               )}
             />
           <Route

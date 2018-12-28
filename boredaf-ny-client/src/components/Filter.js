@@ -13,7 +13,6 @@ class Filter extends Component {
     }, this.props.changeFilter(e.target.value.toLowerCase()))
   }
 
-
   render(){
     const options = ["All", "Free", "Education", "Recreational", "Social", "DIY", "Charity", "Cooking", "Relaxation", "Music", "Busywork"]
     // console.log("in filter the state is", this.state.dropdown)

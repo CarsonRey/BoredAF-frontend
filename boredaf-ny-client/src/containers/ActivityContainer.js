@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Activity from '../components/Activity'
 import Choice from '../components/Choice'
 import Filter from '../components/Filter'
-import Form from '../components/Form'
 
 class ActivityContainer extends Component {
 
@@ -20,7 +19,7 @@ class ActivityContainer extends Component {
 
   changeFilter = (filter) => {
     this.setState({
-      filter: filter
+      filter: filter === 'all' ? null : filter
     }, this.getNewActivity())
   }
 
@@ -76,7 +75,6 @@ class ActivityContainer extends Component {
           <Activity activity={this.state.activity} />
           <Choice makeChoice={this.makeChoice}/>
         </div>
-        <Form/>
       </React.Fragment>
     )
   }

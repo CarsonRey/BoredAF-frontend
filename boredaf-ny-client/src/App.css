@@ -18,7 +18,7 @@ html,body {padding:0; margin:0; }
   border-radius: 10px;
   width: 20%;
   height: 25%;
-  padding: 1% 0% 0% 6%;
+  padding: 1% 2% 0% 2%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -26,6 +26,7 @@ html,body {padding:0; margin:0; }
 
 .plus{
   position:relative;
+  margin-left: 30px;
   left:35px;
   top:50px;
   border: 1px dotted white;
@@ -48,18 +49,17 @@ html,body {padding:0; margin:0; }
 }
 .popup .popuptext{
    visibility: hidden;
-   width: 100px;
+   width: 90%;
    background-color: #555;
    color: #fff;
    text-align: center;
    border-radius: 6px;
-   font-size: 10px;
+   font-size: 15px;
    position: absolute;
    z-index: 1;
-   bottom: 150%;
-   /* left: 50%; */
-   /* margin: -5px 20px 1px -4.5px; */
-   padding: .2px 0px .7px 0px;
+   bottom: 145%;
+   margin: 2px 0px 0px 0px;
+   /* padding: .2px 0px .7px 0px; */
    /* top: 99%; */
 }
 
@@ -81,11 +81,11 @@ html,body {padding:0; margin:0; }
   animation: fadeIn 1s;
 }
 
-.settings-btn{
+/* .settings-btn{
   width: 75%;
   height: 50%;
   border-radius: 25px;
-}
+} */
 /*
 .settings-helper{
   background: red;
@@ -145,7 +145,7 @@ html,body {padding:0; margin:0; }
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  max-width: 719px;
+  max-width: 713px;
   height: 50px;
   overflow-x: scroll;
   white-space: nowrap;
@@ -161,6 +161,8 @@ html,body {padding:0; margin:0; }
   display: block;
   text-align: left;
 }
+
+
 
 .show {
   display: block;
@@ -229,14 +231,13 @@ html,body {padding:0; margin:0; }
 
 
 .appNameContainer{
-  animation-name: spin, depth;
+  /* animation-name: spin, depth;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  animation-duration: 5s;
+  animation-duration: 5s; */
   text-align: center;
-
   flex-direction: column;
-  /* padding: 30px 0px; */
+  padding: 30px 0px;
   width: 30%;
   margin: auto;
 }
@@ -244,14 +245,14 @@ html,body {padding:0; margin:0; }
 .appName{
   font-family: Sketch3D;
   font-size: 50px;
+  /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  animation: rainbow 6s infinite; */
 }
 .shadow{
     content:'';
     display: block;
-    position: absolute;
-    left:630px;
+    margin: -19px 0px 50px 125px;
     top: 45px;
-    /* bottom: 0px; */
     width: 50%;
     max-width: 180px;
     height: 10px;
@@ -264,6 +265,66 @@ html,body {padding:0; margin:0; }
 @font-face{
   font-family: 'Sketch3D';
   src: local('Sketch3D'); /* IE9 Compat Modes */
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  background-color:#d3d3d3;
+  width: 30%;
+  margin: auto;
+  margin-top: 20px;
+  padding: 50px 0px;
+  border-radius: 5px;
+}
+
+.formName{
+  /* margin-top:100px; */
+  font-family: Sketch3D;
+  font-size: 50px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  animation: rainbow 6s infinite;
+}
+
+.form .input, select {
+  width: 70%;
+  margin: auto;
+  color:dimgrey;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+.form label {
+  font-family: Palatino;
+  font-weight: bold;
+  color: black;
+  font-size: 25px;
+
+}
+
+@keyframes rainbow{
+  0%{color: orange;}
+  10%{color: purple;}
+	20%{color: red;}
+	40%{color: yellow;}
+	60%{color: green;}
+	100%{color: orange;}
+}
+
+.form p {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.radio{
+  width:40px;
+}
+
+@keyframes spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-360deg); }
 }
 
 @keyframes fadeIn {

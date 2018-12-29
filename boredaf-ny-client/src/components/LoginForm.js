@@ -17,7 +17,7 @@ class LoginForm extends React.Component {
     return (
       <div>
         <div className="formName">log in</div>
-        <form className="form" onSubmit={e => this.props.loginFormSubmitHandler(e, this.state)}>
+        <form className="form" onSubmit={e => this.props.loginSubmitHandler(e, this.state)}>
           <label htmlFor="loginUsername">Username</label>
             <br/>
           <input

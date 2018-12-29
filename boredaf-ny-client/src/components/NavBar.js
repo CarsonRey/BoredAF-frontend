@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 class NavBar extends React.Component{
   render(){
-    console.log("the current container is ", this)
+    // console.log("the current container is ", this)
   return (
     <div className="navContainer">
 

@@ -15,6 +15,7 @@ class ActivityContainer extends Component {
 
   componentDidMount(){
     this.getNewActivity()
+    
   }
 
   changeFilter = (filter) => {
@@ -64,7 +65,7 @@ class ActivityContainer extends Component {
     // console.log("seen", this.state.seenActivities)
     // console.log("bye", this.state.declinedActivities)
     // console.log("saved", this.state.savedActivities)
-    console.log("in ActivityContainer filter is", this.state.filter)
+    // console.log("in ActivityContainer filter is", this.state.filter)
 
 
 

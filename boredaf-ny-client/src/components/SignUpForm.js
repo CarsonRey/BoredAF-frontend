@@ -13,11 +13,12 @@ class SignUpForm extends React.Component {
   };
 
   render() {
-    console.log(this.props);
+    console.log("The Username is", this.state.signupUsername);
+    console.log("The Password is", this.state.signupPassword);
     return (
       <div>
         <div className="formName">sign up</div>
-        <form className="form" onSubmit={e => this.props.signupSubmitHandler(e, this.state)}>
+        <form className="form" onSubmit={e => this.props.signupFormSubmitHandler(e, this.state)}>
           <label htmlFor="signupUsername">Username</label>
           <br/>
           <input

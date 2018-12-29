@@ -29,11 +29,11 @@ class App extends Component {
   };
 
   createUser = (userInfo) => {
-    fetch("http://localhost:3000/api/v1/users/", {
+    fetch("http://localhost:3001/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accepts: "application/json"
+        Accept: "application/json"
       },
       body: JSON.stringify({
         user: {
@@ -41,9 +41,7 @@ class App extends Component {
           password: userInfo.signupPassword
         }
       })
-    })
-    .then(resp => resp.json())
-    .then(resp => {
+    }).then(resp => resp.json()).then(resp => {
       localStorage.setItem("token", resp.jwt);
       this.setState({
         user: resp.user
@@ -52,11 +50,12 @@ class App extends Component {
   }
 
   getUser = (userInfo) => {
-    fetch("http://localhost:3000/api/v1/login/", {
+    // debugger
+    fetch("http://localhost:3001/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accepts: "application/json"
+        Accept: "application/json"
       },
       body: JSON.stringify({
         user: {
@@ -82,19 +81,34 @@ class App extends Component {
     this.props.history.push("/")
   }
 
+  requireAuth = () => {
+    console.log("hi")
+  }
+
+  componentDidMount(){
+    let token = localStorage.getItem("token");
+    fetch("http://localhost:3001/api/v1/current_user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Action': "application/json",
+        'Authorization': `${token}`
+      }
+    });
+  }
+
   render() {
+    console.log("in app, user is", this.state.user )
     return (
 
       <div className="App">
         <NavBar/>
-        {/* <BrowserRouter> */}
         <Switch>
           <Route
               path="/login"
               render={() => (
                 <LoginForm
                   loginSubmitHandler={this.loginSubmitHandler}
-                  handleCharacterClick={this.handleCharacterClick}
                 />
               )}
             />
@@ -102,8 +116,7 @@ class App extends Component {
               path="/signup"
               render={() => (
                 <SignUpForm
-                  signupFormSubmitHandler={this.signupSubmitHandler}
-                  handleCharacterClick={this.handleCharacterClick}
+                  signupFormSubmitHandler={this.signupFormSubmitHandler}
                 />
               )}
             />
@@ -115,6 +128,7 @@ class App extends Component {
             />
           <Route
               path="/saved-activities"
+              onEnter={this.requireAuth}
               render={() => (
                 <SavedActivities />
               )}
@@ -132,11 +146,7 @@ class App extends Component {
               )}
             />
           </Switch>
-
-        {/* </BrowserRouter> */}
-
-      </div>
-
+        </div>
     );
   }
 }

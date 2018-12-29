@@ -94,7 +94,13 @@ class App extends Component {
         'Action': "application/json",
         'Authorization': `${token}`
       }
-    });
+    })
+    .then(response => response.json())
+    .then(resp => {
+      this.setState({
+      user: resp.user
+    })
+  })
   }
 
   render() {

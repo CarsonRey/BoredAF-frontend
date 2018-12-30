@@ -10,8 +10,12 @@ class SavedActivities extends Component {
     this.props.user.activities.map(activity => <div>activity.activity</div>)
   }
 
+  // we have access to the user prop which only has the id, username and password_digest.
+  // we might have to fetch the user by the id (with a show method in user_controller) and get the activities from the response
+  // with that response we can iterate over the activities and display them
+
   render(){
-    console.log(this.props);
+    console.log("user prop of SavedActivities",this.props.user);
     return(
       <React.Fragment>
         <div className="formName" >Saved Activities</div>

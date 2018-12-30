@@ -82,17 +82,17 @@ class ActivityContainer extends Component {
     })
     .then(resp => resp.json())
     .then(activity => {
-      console.log("after creating the activity", activity);
+      this.addActivityToUserSaved(activity.id, this.props.user.id)
     })
   }
 
   addActivityToUserSaved = (activityId, userId) => {
-    fetch("http://localhost:3001/api/v1/selected_activity", {
+    fetch("http://localhost:3001/api/v1/user_activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({activity: activity.activity, category: activity.type})
+      body: JSON.stringify({activity_id: activityId, user_id: userId})
     })
   }
 
@@ -102,14 +102,10 @@ class ActivityContainer extends Component {
     }, this.getNewActivity())
   }
 
-  createAssociation = () => {
-
-  }
-
   render(){
     // console.log("activity id is", this.state.seenActivities)
     // console.log("bye", this.state.declinedActivities)
-    console.log("saved", this.state.savedActivities)
+    // console.log("saved", this.state.savedActivities)
     // console.log("in ActivityContainer filter is", this.state.filter)
 
 

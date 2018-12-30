@@ -136,7 +136,7 @@ class App extends Component {
               path="/saved-activities"
               onEnter={this.requireAuth}
               render={() => (
-                <SavedActivities />
+                <SavedActivities user={this.state.user} />
               )}
             />
           <Route
@@ -148,7 +148,8 @@ class App extends Component {
           <Route
               path="/"
               render={() => (
-                <ActivityContainer newActivityForm={this.newActivityForm} />
+                <ActivityContainer
+                  user={this.state.user} newActivityForm={this.newActivityForm} />
               )}
             />
           </Switch>

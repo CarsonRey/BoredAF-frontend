@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 class Choice extends Component {
 
   render(){
+
+    // console.log("in choice, the activity is ", this.props.activity)
     return(
       <div className="choice">
 
@@ -16,7 +18,7 @@ class Choice extends Component {
           </div>
         </div>
 
-        <div onClick={(e) => this.props.makeChoice(e.target.className.split(" ")[0])} className="try choice-btn">
+        <div onClick={(e) => this.props.makeChoice(e.target.className.split(" ")[0], this.props.activity)} className="try choice-btn">
           <h4>TRY</h4>
         </div>
 

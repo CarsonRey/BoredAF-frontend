@@ -22,9 +22,9 @@ class Form extends Component {
             {options.map((option) => <option value={option.toLowerCase()}  >{option}</option>)}
           </select> <br/>
 
-          <label htmlFor="participants">Participants </label>
+          {/* <label htmlFor="participants">Participants </label>
               <p>Minmum amount of participants is 1!</p>
-          <input className="input" name="participants" type="number"/>
+          <input className="input" name="participants" type="number"/> */}
 
           <div className="">
             <p>Would you like to save this to your activities?</p>

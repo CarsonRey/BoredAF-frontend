@@ -13,7 +13,8 @@ import './App.css';
 class App extends Component {
 
   state = {
-    user: null
+    user: null,
+    userSavedActivities: []
   }
 
   signupFormSubmitHandler = (e, userInfo) => {
@@ -73,16 +74,29 @@ class App extends Component {
     });
   }
 
+  showUser = () => {
+    setTimeout(() => {this.fetchUser()}, 1.01)
+  }
+
+  fetchUser = () => {
+    fetch(`http://localhost:3001/api/v1/users/${this.state.user.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).then(resp =>resp.json()).then(user => {
+      this.setState({
+        userSavedActivities: [...this.state.userSavedActivities, ...user.activities]
+      })
+    })
+  }
+
   newActivityForm = () => {
     this.props.history.push("/new-activity")
   }
 
   backToActivities = () => {
     this.props.history.push("/")
-  }
-
-  requireAuth = () => {
-    console.log("hi")
   }
 
   componentDidMount(){
@@ -99,12 +113,13 @@ class App extends Component {
     .then(resp => {
       this.setState({
       user: resp.user
-    })
+    }, this.showUser())
   })
   }
 
   render() {
-    console.log("in app, user is", this.state.user )
+    // console.log("in app, user is", this.state.user )
+    // setTimeout(()=>{console.log("user prop of SavedActivities is ",this.props.user.id);}, 1.01)
     return (
 
       <div className="App">
@@ -136,7 +151,7 @@ class App extends Component {
               path="/saved-activities"
               onEnter={this.requireAuth}
               render={() => (
-                <SavedActivities user={this.state.user} />
+                <SavedActivities activities={this.state.userSavedActivities} />
               )}
             />
           <Route

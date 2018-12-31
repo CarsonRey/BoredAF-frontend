@@ -75,10 +75,10 @@ class App extends Component {
     });
   }
 
-  updateUser = (user, association) => {
+  updateUser = (user, activity) => {
     this.setState({
       userInfo: user,
-      userSavedActivities: [...this.state.userSavedActivities, association]
+      userSavedActivities: [...this.state.userSavedActivities, activity]
 
     })
   }
@@ -130,6 +130,7 @@ class App extends Component {
   }
 
   changeTried = (association) => {
+    console.log("before the fetch the activity tried is", association.tried)
     fetch(`http://localhost:3001/api/v1/user_activities/${association.id}`, {
       method: "POST",
       headers: {
@@ -143,9 +144,19 @@ class App extends Component {
     })
     .then(resp => resp.json())
     .then(changedAssociation => {
-      let update = this.state.userSavedActivities.filter(association => association.)
+      console.log("after the fetch the activity tried is", changedAssociation.tried)
+      // console.log(changedAssociation)
+
+      // we need to get the changedAssociation to immediately render so that the 'X' will turn into 'Checked'
+      // do we need to store the associations in state?
+      // maybe we can solve this the same way we did finding the associations of that activity  by going through user.user_activities
+      // we can render the saved activities with the associations??
+      // look through the associations and filter the user.activities based on the id or name, render the 'activity' & 'category' attributes of the activity THEN render the 'tried' attribute of user_activity 
+
+      let update = this.state.userInfo.user_activities.filter(association => association.id !== changedAssociation.id)
+      // debugger
       this.setState = {
-        userSavedActivities: [...update, association]
+        userInfo: this.state.userInfo
       }
     })
   }
@@ -155,7 +166,7 @@ class App extends Component {
   }
 
   render() {
-    console.log("in app, user is", this.state.userInfo )
+    console.log("in app", this.state.userSavedActivities )
     // setTimeout(()=>{console.log("user prop of SavedActivities is ",this.props.user.id);}, 1.01)
     return (
 

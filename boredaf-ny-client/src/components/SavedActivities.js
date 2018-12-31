@@ -7,29 +7,62 @@ class SavedActivities extends Component {
   // this will have a user prop passed down from app where we can access the user's activivies and iterate through them;
   // display activity, states and button that says "tried yet?"
 
-  user(){setTimeout(()=>{return this.props.user}, 4.01)}
+  savedActivityInfo = () => {
+    return this.props.user.user_activities.length === 0 ? "No saved activities! Click the button below to discover what you can do." : this.returnActivities()
+  }
 
   returnActivities = () => {
-    return this.props.activities.map(activity => <div>{activity.activity}</div>)
+    return this.props.user.activities.map(activity => {
+      return this.activityHTML(activity)
+    } )
   }
 
-  savedActivityInfo = () => {
-    return this.props.user.activities.length === 0 ? "No saved activities! Click the button below to discover what you can do." : this.returnActivities()
+  activityHTML = (activity) => {
+    // debugger
+    return <div className="saved-row">
+        <div className="data-activity saved-row" >{activity.activity}</div>
+        <div>{activity.category}</div>
+        <div className="btn-try tb-btn"  onClick={() => this.changeTriedClickHandler(activity) }>{this.returnAssociation(activity.id)[0].tried ? "Check" : "X"}</div>
+        <div className="btn-journal tb-btn">no</div>
+      </div>
   }
-  // we have access to the user prop which only has the id, username and password_digest.
-  // we might have to fetch the user by the id (with a show method in user_controller) and get the activities from the response
-  // with that response we can iterate over the activities and display them
+
+  changeTriedClickHandler = (activity) => {
+    let association = this.returnAssociation(activity.id)[0]
+    this.props.changeTried(association)
+  }
+
+  returnAssociation = (activityId) => {
+    return this.props.user.user_activities.filter(association => association.activity_id === activityId)
+  }
+
+  renderButton = (tried) => {
+
+  }
+
+
+
 
   render(){
 
-    setTimeout(()=>{ console.log(this.props.activities)}, 4.01)
+    setTimeout(()=>{ console.log(this.props.user)},0)
 
     return(
       <React.Fragment>
         <div className="formName" >Saved Activities</div>
-        <div>
-          {this.returnActivities()}
-        </div>
+
+        <table className="savedActivitiesTable">
+          <tr>
+            <th className="table-activity">activity</th>
+            <th className="table-category">category</th>
+            <th className="table-try">tried</th>
+            <th className="table-try">journaled</th>
+          </tr>
+          {/* <div className="savedActivities"> */}
+            {this.props.user && this.savedActivityInfo()}
+          {/* </div> */}
+        </table>
+
         <Link to="/">
           <div>back to swiping!</div>
         </Link>

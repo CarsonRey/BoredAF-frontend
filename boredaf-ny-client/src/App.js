@@ -13,8 +13,9 @@ import './App.css';
 class App extends Component {
 
   state = {
-    user: null,
-    userSavedActivities: []
+    userLocalStorage: null,
+    userSavedActivities: [],
+    userInfo: null
   }
 
   signupFormSubmitHandler = (e, userInfo) => {
@@ -45,7 +46,7 @@ class App extends Component {
     }).then(resp => resp.json()).then(resp => {
       localStorage.setItem("token", resp.jwt);
       this.setState({
-        user: resp.user
+        userLocalStorage: resp.user
       });
     });
   }
@@ -69,25 +70,16 @@ class App extends Component {
     .then(resp => {
       localStorage.setItem("token", resp.jwt);
       this.setState({
-        user: resp.user
+        userLocalStorage: resp.user
       });
     });
   }
 
-  showUser = () => {
-    setTimeout(() => {this.fetchUser()}, 1.01)
-  }
+  updateUser = (user, association) => {
+    this.setState({
+      userInfo: user,
+      userSavedActivities: [...this.state.userSavedActivities, association]
 
-  fetchUser = () => {
-    fetch(`http://localhost:3001/api/v1/users/${this.state.user.id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      }
-    }).then(resp =>resp.json()).then(user => {
-      this.setState({
-        userSavedActivities: [...this.state.userSavedActivities, ...user.activities]
-      })
     })
   }
 
@@ -112,13 +104,58 @@ class App extends Component {
     .then(response => response.json())
     .then(resp => {
       this.setState({
-      user: resp.user
+      userLocalStorage: resp.user
     }, this.showUser())
   })
   }
 
+  showUser = () => {
+    setTimeout(() => {this.fetchUser()}, 1.0001)
+  }
+
+  fetchUser = () => {
+    fetch(`http://localhost:3001/api/v1/users/${this.state.userLocalStorage.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    .then(resp =>resp.json()).then(user => {
+      // debugger
+      this.setState({
+        userInfo: user,
+        userSavedActivities: [...this.state.userSavedActivities, ...user.activities]
+      })
+    })
+  }
+
+  changeTried = (association) => {
+    fetch(`http://localhost:3001/api/v1/user_activities/${association.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        activity_id: association.activity_id,
+        user_id: association.user_id,
+        tried: !association.tried
+      })
+    })
+    .then(resp => resp.json())
+    .then(changedAssociation => {
+      let update = this.state.userSavedActivities.filter(association => association.)
+      this.setState = {
+        userSavedActivities: [...update, association]
+      }
+    })
+  }
+
+  filterUserSaved = () => {
+    return this.state.userSavedActivities
+  }
+
   render() {
-    // console.log("in app, user is", this.state.user )
+    console.log("in app, user is", this.state.userInfo )
     // setTimeout(()=>{console.log("user prop of SavedActivities is ",this.props.user.id);}, 1.01)
     return (
 
@@ -151,7 +188,9 @@ class App extends Component {
               path="/saved-activities"
               onEnter={this.requireAuth}
               render={() => (
-                <SavedActivities activities={this.state.userSavedActivities} />
+                <SavedActivities
+                 changeTried={this.changeTried}
+                 user={this.state.userInfo}/>
               )}
             />
           <Route
@@ -164,7 +203,8 @@ class App extends Component {
               path="/"
               render={() => (
                 <ActivityContainer
-                  user={this.state.user} newActivityForm={this.newActivityForm} />
+                  updateUser={this.updateUser}
+                  user={this.state.userLocalStorage} newActivityForm={this.newActivityForm} />
               )}
             />
           </Switch>

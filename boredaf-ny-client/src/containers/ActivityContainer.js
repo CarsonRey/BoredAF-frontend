@@ -38,7 +38,6 @@ class ActivityContainer extends Component {
     fetch(`https://www.boredapi.com/api/activity${this.checkFilter()}`)
     .then(response => response.json())
     .then(activity => {
-      // debugger
 
       this.setState({
         activity: activity,
@@ -47,26 +46,13 @@ class ActivityContainer extends Component {
     })
   }
 
-  addActivityToDB = (activity) => {
-    fetch("http://localhost:3001/api/v1/activities", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({activity: activity.activity, category: activity.category})
-    })
-  }
-
-
   makeChoice = (button, activity) => {
     button === 'try' ? this.tryActivity(activity) : this.declineActivity(activity)
   }
 
   tryActivity = (activity) => {
     this.findOrCreateActivity(activity)
-      // pass in activity object to find the activity (by name) that was saved
-      // if it is in the DB, we create an association between the current user and the activity
-      //if its not, we add the activity to the database and then create the association
+
     this.setState({
       savedActivities:[...this.state.savedActivities, this.state.activity]
     }, this.getNewActivity())
@@ -82,18 +68,18 @@ class ActivityContainer extends Component {
     })
     .then(resp => resp.json())
     .then(activity => {
-      this.addActivityToUserSaved(activity.id, this.props.user.id)
+      this.addActivityToUserSaved(activity.id, this.props.user)
     })
   }
 
-  addActivityToUserSaved = (activityId, userId) => {
+  addActivityToUserSaved = (activityId, user) => {
     fetch("http://localhost:3001/api/v1/user_activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({activity_id: activityId, user_id: userId})
-    })
+      body: JSON.stringify({activity_id: activityId, user_id: user.id})
+    }).then(resp => resp.json()).then(association => this.props.updateUser(association.user, association))
   }
 
   declineActivity = () => {

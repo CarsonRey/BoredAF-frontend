@@ -26,7 +26,7 @@ class Filter extends Component {
               <i className="fa fa-caret-down"></i>
             </button>
             <div className="dropdown-content" id="myDropdown">
-              {options.map((option) => <button className="tablinks" value={option} onClick={this.changeDropdown} >{option}</button>)}
+              {options.map((option) => <button key={option} className="tablinks" value={option} onClick={this.changeDropdown} >{option}</button>)}
             </div>
           </div>
           {/* <button className="tablinks" onClick={(event) => console.log(event.target.value)} value="nearby">Nearby</button> */}

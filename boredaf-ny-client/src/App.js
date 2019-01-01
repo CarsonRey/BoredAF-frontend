@@ -7,6 +7,7 @@ import Form from './components/Form'
 import SavedActivities from './components/SavedActivities'
 import Nearby from './components/Nearby'
 import { Switch, Route, withRouter } from "react-router-dom";
+import video from './bored1.mov'
 
 import './App.css';
 
@@ -76,6 +77,7 @@ class App extends Component {
   }
 
   updateUser = (user, activity) => {
+    this.fetchUser()
     this.setState({
       userInfo: user,
       userSavedActivities: [...this.state.userSavedActivities, activity]
@@ -110,7 +112,7 @@ class App extends Component {
   }
 
   showUser = () => {
-    setTimeout(() => {this.fetchUser()}, 1.0001)
+    setTimeout(() => {this.fetchUser()}, 2000)
   }
 
   fetchUser = () => {
@@ -137,28 +139,21 @@ class App extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        activity_id: association.activity_id,
-        user_id: association.user_id,
         tried: !association.tried
       })
     })
     .then(resp => resp.json())
     .then(changedAssociation => {
       console.log("after the fetch the activity tried is", changedAssociation.tried)
-      // console.log(changedAssociation)
-
-      // we need to get the changedAssociation to immediately render so that the 'X' will turn into 'Checked'
-      // do we need to store the associations in state?
-      // maybe we can solve this the same way we did finding the associations of that activity  by going through user.user_activities
-      // we can render the saved activities with the associations??
-      // look through the associations and filter the user.activities based on the id or name, render the 'activity' & 'category' attributes of the activity THEN render the 'tried' attribute of user_activity 
-
-      let update = this.state.userInfo.user_activities.filter(association => association.id !== changedAssociation.id)
-      // debugger
-      this.setState = {
-        userInfo: this.state.userInfo
-      }
+      this.fetchUser()
     })
+  }
+
+  deleteAssociation = (association) => {
+    fetch(`http://localhost:3001/api/v1/delete_association/${association.id}`, {method: "POST"})
+    .then(resp => resp.json())
+    .then(()=> this.fetchUser() )
+
   }
 
   filterUserSaved = () => {
@@ -166,12 +161,18 @@ class App extends Component {
   }
 
   render() {
-    console.log("in app", this.state.userSavedActivities )
-    // setTimeout(()=>{console.log("user prop of SavedActivities is ",this.props.user.id);}, 1.01)
-    return (
+    console.log("before fetching User", this.state.userLocalStorage )
 
+    return (
+// frontend-bored-af-ny/boredaf-ny-client/src/App.js
+// frontend-bored-af-ny/boredaf-ny-client/src/bored.mp4
       <div className="App">
-        <NavBar/>
+        <video className="myVideo" loop autoPlay muted >
+          <source src={video} type="video/mp4"/>
+          <source src={video} type="video/ogg"/>
+          Your browser does not support the video tag.
+        </video>
+        <NavBar user={this.state.userInfo}/>
         <Switch>
           <Route
               path="/login"
@@ -200,6 +201,7 @@ class App extends Component {
               onEnter={this.requireAuth}
               render={() => (
                 <SavedActivities
+                 delete={this.deleteAssociation}
                  changeTried={this.changeTried}
                  user={this.state.userInfo}/>
               )}

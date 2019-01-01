@@ -68,18 +68,20 @@ class ActivityContainer extends Component {
     })
     .then(resp => resp.json())
     .then(activity => {
-      this.addActivityToUserSaved(activity.id, this.props.user)
+      this.addActivityToUserSaved(activity, this.props.user)
     })
   }
 
-  addActivityToUserSaved = (activityId, user) => {
+  addActivityToUserSaved = (activity, user) => {
     fetch("http://localhost:3001/api/v1/user_activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({activity_id: activityId, user_id: user.id})
-    }).then(resp => resp.json()).then(association => this.props.updateUser(association.user, association))
+      body: JSON.stringify({activity_id: activity.id, user_id: user.id})
+    })
+    .then(resp => resp.json())
+    .then(association => this.props.updateUser(association.user, activity))
   }
 
   declineActivity = () => {

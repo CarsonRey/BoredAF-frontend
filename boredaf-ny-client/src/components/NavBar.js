@@ -22,6 +22,7 @@ class NavBar extends React.Component{
 
       <Link className="link" to="/saved-activities">
         <div className="navitem">saved</div>
+        <div className="numberSaved">{this.props.user && this.props.user.user_activities.filter(association => association.tried === false || association.tried === null).length}</div>
       </Link>
     </div>
   );

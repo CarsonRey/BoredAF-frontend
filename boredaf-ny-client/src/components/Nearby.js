@@ -11,8 +11,8 @@ class Nearby extends Component {
     return(
       <React.Fragment>
         <div>Nearby Activities</div>
-        <Link to="/">
-          <div>back to swiping!</div>
+        <Link className="link" to="/">
+          <div className="navitem">back to swiping!</div>
         </Link>
       </React.Fragment>
     )

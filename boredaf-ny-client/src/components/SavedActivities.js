@@ -12,36 +12,42 @@ class SavedActivities extends Component {
   }
 
   returnActivities = () => {
-    return this.props.user.activities.map(activity => {
-      return this.activityHTML(activity)
+    let associations = this.props.user.user_activities
+    let sortedAssociations = associations.sort(function(a, b){return a - b})
+    return sortedAssociations.map(association => {
+      return this.activityHTML(association)
     } )
   }
 
-  activityHTML = (activity) => {
+  sortAssociationsByUpdated = () => {
+
+  }
+
+  activityHTML = (association) => {
+    let activity = this.returnActivity(association.activity_id)[0]
     // debugger
     return <div className="saved-row">
-        <div className="data-activity saved-row" >{activity.activity}</div>
-        <div>{activity.category}</div>
-        <div className="btn-try tb-btn"  onClick={() => this.changeTriedClickHandler(activity) }>{this.returnAssociation(activity.id)[0].tried ? "Check" : "X"}</div>
-        <div className="btn-journal tb-btn">no</div>
+        <div className="td data-activity saved-row" >{activity.activity}</div>
+        {/* <div className="activity-info"> */}
+          <div className="td data-category">{activity.category}</div>
+          <div className="td btn-try tb-btn"  onClick={() => this.props.changeTried(association)}>{association.tried ? "✓" : "✘"}</div>
+          <div className="td btn-journal tb-btn">✏️</div>
+          <div className="delete" onClick={()=> this.props.delete(association)}>x</div>
+        {/* </div> */}
+
       </div>
   }
 
-  changeTriedClickHandler = (activity) => {
-    let association = this.returnAssociation(activity.id)[0]
-    this.props.changeTried(association)
+  // 📝 or 📖
+
+  // changeTriedClickHandler = (activity) => {
+  //   let association = this.returnAssociation(activity.id)[0]
+  //   this.props.changeTried(association)
+  // }
+
+  returnActivity = (activityId) => {
+    return this.props.user.activities.filter(activity => activity.id === activityId)
   }
-
-  returnAssociation = (activityId) => {
-    return this.props.user.user_activities.filter(association => association.activity_id === activityId)
-  }
-
-  renderButton = (tried) => {
-
-  }
-
-
-
 
   render(){
 
@@ -50,21 +56,21 @@ class SavedActivities extends Component {
     return(
       <React.Fragment>
         <div className="formName" >Saved Activities</div>
+        <div className="headers">
+          <div className="th table-activity">activity</div>
+          <div className="th table-category">category</div>
+          <div className="th table-try">tried</div>
+          <div className="th table-journal">journal</div>
+        </div>
+        <div className="savedActivitiesTable">
 
-        <table className="savedActivitiesTable">
-          <tr>
-            <th className="table-activity">activity</th>
-            <th className="table-category">category</th>
-            <th className="table-try">tried</th>
-            <th className="table-try">journaled</th>
-          </tr>
-          {/* <div className="savedActivities"> */}
+          <div className="savedActivities">
             {this.props.user && this.savedActivityInfo()}
-          {/* </div> */}
-        </table>
+          </div>
+        </div>
 
-        <Link to="/">
-          <div>back to swiping!</div>
+        <Link className="link" to="/">
+          <div className="navitem">back to swiping!</div>
         </Link>
       </React.Fragment>
     )

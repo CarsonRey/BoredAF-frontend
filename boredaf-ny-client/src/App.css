@@ -30,6 +30,7 @@ html,body {padding:0; margin:0; }
   left:35px;
   top:50px;
   border: 1px dotted white;
+  border-radius: 10px;
   width: 3px;
   height: 3px;
   background-color: #d5d5d5;
@@ -123,6 +124,7 @@ html,body {padding:0; margin:0; }
   border-radius: 10px;
   width: 50%;
   margin: auto;
+  height: 60%;
 }
 
 .dropdown {
@@ -173,14 +175,15 @@ html,body {padding:0; margin:0; }
   border-radius: 10px;
   width: 50%;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 10%;
   font-size: 20px;
+  background-color: white;
 }
 
 .choice {
   /* width: 90%;
   right: 0; */
-  padding: 40px 30px;
+  padding: 12% 30px 40px 30px;
   display: flex;
   justify-content: space-around;
   /* float: left; */
@@ -191,6 +194,7 @@ html,body {padding:0; margin:0; }
   transition: box-shadow 0.3s linear;
   margin: 0.5em;
   border-radius: 20px;
+  background-color: white;
 }
 
 .try {
@@ -252,6 +256,18 @@ div{
   animation: rainbow 6s infinite;
 }
 
+.numberSaved{
+  position: absolute;
+  right: 9%;
+  top: 6.5%;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 3px;
+
+}
+
 .link{
     text-decoration:none;
 }
@@ -298,40 +314,127 @@ div{
 .savedActivitiesTable{
   width: 70%;
   margin: auto;
-  padding: 20px 10px;
+  padding: 0px 10px 20px 10px;
   border: 1px solid black;
   border-radius: 10px;
-  height: 50px;
+  height: 60%;
   overflow: scroll;
 }
 
-table {
-  /* border-collapse: collapse; */
-  width: 100%;
+
+.savedActivities{
+  margin: auto;
+  margin-top: 40px;
 }
 
-th {
-  border-bottom: 1px solid;
+.th {
+  display: inline-block;
+  padding: 10px 0px;
 }
 
-tr{
+.headers{
+  margin: 0 14.25%;
+  position: absolute;
+  background:lightgrey;
+  width: 71.35%;
+  border: 1px solid;
+  font-weight: bold;
+  /* border-bottom: 1px solid;
+  border-top: 1px solid; */
+  border-radius: 5px 5px 0px 0px;
+}
 
+.activity-info{
+  display: inline-block;
+  float:right;
+
+}
+
+.saved-row{
+  text-align: left;
+  margin: 15px;
+}
+
+.td{
+  display: inline-block;
+}
+
+.table-activity{
+  width: 55%;
+}
+.data-activity{
+  text-align: left;
+  width: 62%;
+}
+
+.table-category{
+  width: 14%;
+}
+.data-category{
+  width: 14%;
 }
 
 .tb-btn {
-  /* height: 50px; */
-  /* overflow: scroll; */
   margin: 4px 0px;
-  /* border: 1px solid black; */
   border-radius: 5px;
   background-color: lightgrey;
-  padding: 6px 2px;
+}
+
+.table-try, .table-journal{
+  width: 8%;
+}
+
+.btn-try, .btn-journal{
+  text-align: center;
+  width: 4%;
+  margin:auto;
 }
 
 .btn-try:hover, .btn-journal:hover{
   background-color: gainsboro;
   font-weight: bold;
 }
+
+
+.btn-try{
+  padding: 12px 10px;
+  margin-right: 2.5%;
+  /* padding: 10px 3px; */
+}
+
+.myVideo{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100%;
+  min-height: 100%;
+  z-index: -99;
+  opacity: .50;
+}
+
+.btn-journal{
+  padding: 6px 3px  9px 10px;
+}
+
+.delete{
+  margin-left: 1.5%;
+  width: 2%;
+  text-align: center;
+  display: inline-block;
+  background-color: darkgrey;
+  color:white;
+  padding: 0 2px;
+  border-radius: 4px;
+}
+.delete:hover{
+  background-color: lightgrey;
+  font-weight: bold;
+}
+
+
 
 .savedActivitiesTable .table-try {
   width:10%;
@@ -341,10 +444,6 @@ tr{
   text-align: left;
 }
 
-.savedActivities{
-  margin: auto;
-
-}
 
 .form{
   display: flex;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ActivityContainer from './containers/ActivityContainer'
+import NewActivityContainer from './containers/NewActivityContainer'
 import NavBar from './components/NavBar'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
-import Form from './components/Form'
 import SavedActivities from './components/SavedActivities'
 import Nearby from './components/Nearby'
 import { Switch, Route, withRouter } from "react-router-dom";
@@ -193,7 +193,8 @@ class App extends Component {
           <Route
               path="/new-activity"
               render={() => (
-                <Form backToActivities={this.backToActivities}/>
+                <NewActivityContainer backToActivities={this.backToActivities}/>
+
               )}
             />
           <Route

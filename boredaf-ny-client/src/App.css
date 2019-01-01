@@ -95,7 +95,7 @@ html,body {padding:0; margin:0; }
 } */
 
 .plus:hover{
-  background-color: #badcff;
+  background-color: #f7f68d;
 }
 
 /* Style the buttons inside the tab */
@@ -125,6 +125,8 @@ html,body {padding:0; margin:0; }
   width: 50%;
   margin: auto;
   height: 60%;
+  background-color: white;
+  background: rgba(255,255,255, 0.75);
 }
 
 .dropdown {
@@ -203,7 +205,7 @@ html,body {padding:0; margin:0; }
 
 .try:hover{
   /* border-width: 10px; */
-  box-shadow: 0px 0px 0px 10px lightgreen;
+  box-shadow: 0px 0px 0px 10px #67f4f3;
 }
 
 
@@ -213,7 +215,7 @@ html,body {padding:0; margin:0; }
 
 .bye:hover{
   /* border-width: 10px; */
-  box-shadow: 0px 0px 0px 10px pink;
+  box-shadow: 0px 0px 0px 10px #f367bd;
 }
 
 .slider{

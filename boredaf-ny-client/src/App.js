@@ -161,7 +161,7 @@ class App extends Component {
   }
 
   render() {
-    console.log("before fetching User", this.state.userLocalStorage )
+    // console.log("before fetching User", this.state.userLocalStorage )
 
     return (
 // frontend-bored-af-ny/boredaf-ny-client/src/App.js

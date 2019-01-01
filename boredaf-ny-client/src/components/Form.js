@@ -13,13 +13,17 @@ class Form extends Component {
           <div className="formName">new activity</div>
           <form className="form">
 
-          <label htmlFor="">Activity </label>
+          <label htmlFor="activity">Activity </label>
             <p>Please start the activity with a command/ verb</p>
-          <input className="input" type="text"/> <br/>
+          <input name="activity" className="input" type="text"/> <br/>
+
+          <label htmlFor="link">Link </label>
+            <p>(optional)</p>
+          <input name="link" className="input" type="text"/> <br/>
 
           <label htmlFor="category">Category </label> <br/>
           <select name="category" id="">
-            {options.map((option) => <option value={option.toLowerCase()}  >{option}</option>)}
+            {options.map((option) => <option key={option} value={option.toLowerCase()}  >{option}</option>)}
           </select> <br/>
 
           {/* <label htmlFor="participants">Participants </label>
@@ -30,6 +34,12 @@ class Form extends Component {
             <p>Would you like to save this to your activities?</p>
             <div>No <input className="radio" type="radio" value="No" defaultChecked name="option"/></div>
             <div>Yes <input className="radio" type="radio" value="Yes" name="option"/></div>
+          </div> <br/>
+
+          <div className="">
+            <p>Is this activity free?</p>
+            <div>No <input className="radio" type="radio" value="No" defaultChecked name="free"/></div>
+            <div>Yes <input className="radio" type="radio" value="Yes" name="free"/></div>
           </div> <br/>
 
           <input className="input" type="submit" value="Add Activity"/> <br/>

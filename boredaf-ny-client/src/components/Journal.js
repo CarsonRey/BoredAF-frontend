@@ -29,19 +29,32 @@ class Journal extends Component {
     return this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
   }
 
-  journalEntryHTML = (entry) => {
+  returnAssociation = (entry) => {
+    // debugger
+    return this.props.user.user_activities.filter(association => association.activity_id === entry.activity_id)[0]
+  }
 
+  journalEntryHTML = (entry) => {
+    let association = this.returnAssociation(entry)
     return   <div className="saved-row">
-        <div className="td data-activity" > {this.returnActivity(entry.activity_id)}</div>
+        <div className="td data-activity" > {this.returnActivity(entry.activity_id)} <br/>
+        When: {entry.date} <br/>
+        Who: {entry.participants} <br/>
+        Learned: {entry.learned} <br/>
+        Favorite part:{entry.favorite_part} <br/>
+        Least favorite: {entry.least_favorite} <br/>
+        </div>
           <Link className="link"  to="/">
-          <span >edit</span>
+          <span className="journal-btn td btn-try tb-btn" >edit</span>
           </Link>
-          <Link className="link"  to="/">
-          <span >x</span>
+          <Link  className="link"  to="/journal">
+          <span className="delete" onClick={() => this.props.deleteJournalEntry(entry, association)} >x</span>
           </Link>
           {/* <div className="delete" onClick={()=> this.props.delete(association)}>x</div> */}
       </div>
     }
+
+
 
 
 

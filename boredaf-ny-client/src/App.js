@@ -221,16 +221,28 @@ class App extends Component {
     })
     .then(resp => resp.json())
     .then(changedAssociation => {
+      // debugger
       this.fetchUser()
     })
   }
 
   deleteAssociation = (association) => {
+
     fetch(`http://localhost:3001/api/v1/delete_association/${association.id}`, {method: "POST"})
     .then(resp => resp.json())
     .then(()=> this.fetchUser() )
-
   }
+
+  deleteJournalEntry = (journalEntry, association) => {
+    fetch(`http://localhost:3001/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
+    .then(resp => resp.json())
+    .then(()=> {
+      this.changeTriedOrJournaled(association, true)
+      this.fetchUser()
+    })
+  }
+
+
 
   filterUserSaved = () => {
     return this.state.userSavedActivities
@@ -298,7 +310,9 @@ class App extends Component {
           <Route
               path="/journal"
               render={() => (
-                <Journal user={this.state.userInfo}
+                <Journal
+                user={this.state.userInfo}
+                deleteJournalEntry={this.deleteJournalEntry}
                 activityId={this.state.activityId} />
               )}
             />

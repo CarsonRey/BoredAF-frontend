@@ -29,8 +29,6 @@ class SavedActivities extends Component {
 
   }
 
-
-
   activityHTML = (association) => {
     let activity = this.returnActivity(association.activity_id)[0]
     return <div key={activity}className="saved-row">
@@ -38,9 +36,19 @@ class SavedActivities extends Component {
         {/* <div className="activity-info"> */}
           <div className="td data-category">{activity.category}</div>
           <span role="img" alt={association.tried? "thumbs up": "thumbs down"} className="td btn-try tb-btn"  onClick={() => this.props.changeTried(association, false)}>{association.tried ? "👍" : "👎"}</span>
-          <Link className="link" onClick={()=> {this.props.setActivityIdForJournal(activity.id)}} to="/new-journal-entry">
-          <span role="img" className="td btn-journal tb-btn">{association.journaled ? "📖" : "✏️"}</span>
-          </Link>
+
+          {association.journaled ?
+            <Link className="link" onClick={()=> {this.props.setActivityIdForJournal(activity.id)}} to="/journal">
+            <span role="img" className="td btn-journal tb-btn">📖</span>
+            </Link>
+              :
+              <Link className="link" onClick={()=> {this.props.setActivityIdForJournal(activity.id)}} to="/new-journal-entry">
+              <span role="img" className="td btn-journal tb-btn">✏️</span>
+              </Link>
+
+
+              }
+
           <div className="delete" onClick={()=> this.props.delete(association)}>x</div>
         {/* </div> */}
 

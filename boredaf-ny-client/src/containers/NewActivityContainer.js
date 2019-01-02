@@ -3,7 +3,9 @@ import Form from '../components/Form'
 
 const NewActivityContainer = (props) => {
     return(
-        <Form context="NewActivityContainer" />
+        <Form 
+        context="NewActivityContainer"
+        newActivity={props.newActivitySubmitHandler} />
     )
 }
 

@@ -28,10 +28,12 @@ class Activity extends Component {
 // this.sample(suggest).split("...").join(`
     return(
       <div draggable="true" className="activity">
-        <h3>{this.props.activity.activity}</h3>
+        <h3>{this.props.activity.activity} <br/>
+          <a href={this.props.activity.link && this.props.activity.link} target="_blank" rel="noopener noreferrer">{this.props.activity.link && this.props.activity.link}</a>
+        </h3>
         {/* <h5>{this.props.activity.type}</h5>
         <h5>{this.props.activity.participants}</h5> */}
-        <a href={this.props.activity.link && this.props.activity.link} target="_blank" rel="noopener noreferrer">{this.props.activity.link && this.props.activity.link}</a>
+
         {/* <h5>{this.props.activity.price === 0 ? "Free" : "May cost some money"}</h5> */}
       </div>
     )

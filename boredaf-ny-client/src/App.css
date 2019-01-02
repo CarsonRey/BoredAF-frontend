@@ -263,6 +263,12 @@ div{
   /* position: absolute; */
 }
 
+.swipe{
+  bottom: 0;
+  position: absolute;
+  width:100%;
+}
+
 .navitem:hover{
   background: lightgrey;
   color: white;
@@ -322,6 +328,11 @@ div{
 @font-face{
   font-family: 'Sketch3D';
   src: local('Sketch3D'); /* IE9 Compat Modes */
+}
+
+.noneMessage{
+  margin: 25% 0;
+  color: dimgrey;
 }
 
 .savedActivitiesTable{
@@ -470,12 +481,43 @@ div{
 .form{
   display: flex;
   flex-direction: column;
-  background-color:#d3d3d3;
+  background-color:darkgrey;
   width: 50%;
   margin: auto;
   margin-top: 20px;
   padding: 50px 0px;
   border-radius: 5px;
+  color:white;
+  font-weight: bold;
+}
+
+form.form label {
+  color: white;
+}
+
+
+
+.journalEntryContainer{
+  width: 60%;
+  height: 25%;
+  margin: auto;
+  /* background-color: red; */
+}
+
+.entry{
+  height: 30%;
+  width: 100%;
+  background: red;
+  font-weight: bold;
+}
+
+.specific-activity{
+  padding: 10px 0;
+
+}
+
+a {
+font-size: 15px;
 }
 
 .formName{

@@ -33,6 +33,72 @@ class App extends Component {
     this.props.history.push("/");
   };
 
+  newJournalEntrySubmitHandler = (e, form) => {
+    e.preventDefault();
+    this.createEntry(form)
+    this.fetchUser()
+    this.props.history.push("/journal");
+  };
+
+  createEntry = (form) => {
+    fetch("http://localhost:3001/api/v1/journals", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        journal: {
+          date: form.date,
+          participants: form.participants,
+          learned: form.learned,
+          favorite_part: form.favorite_part,
+          least_favorite: form.least_favorite,
+          would_do_again: form.would_do_again,
+          user_id: this.state.userInfo.id,
+          activity_id: this.state.activityId
+        }
+      })
+    })
+    .then(resp=> resp.json())
+    .then(entry => {
+      console.log(entry)
+    })
+  }
+
+  newActivitySubmitHandler = (e, form) => {
+    e.preventDefault();
+    let activity = {activity: form.activity, category: form.category, link: form.link }
+    this.newActivity(activity, form.saveOrNot)
+    this.props.history.push("/saved-activities");
+
+  };
+
+  newActivity = (activity, userWantsActivity) => {
+    fetch("http://localhost:3001/api/v1/selected_activity", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({activity: activity.activity, category: activity.category, link: activity.link})
+    })
+    .then(resp => resp.json())
+    .then(activity => {
+      userWantsActivity && this.addActivityToUserSaved(activity, this.state.userInfo)
+    })
+  }
+
+  addActivityToUserSaved = (activity, user) => {
+    fetch("http://localhost:3001/api/v1/user_activities", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({activity_id: activity.id, user_id: user.id})
+    })
+    .then(resp => resp.json())
+    .then(association => this.fetchUser())
+  }
+
   setActivityIdForJournal = (activityId) => {
     this.setState({
       activityId: activityId
@@ -97,9 +163,6 @@ class App extends Component {
     this.props.history.push("/new-activity")
   }
 
-  backToActivities = () => {
-    this.props.history.push("/")
-  }
 
   componentDidMount(){
     let token = localStorage.getItem("token");
@@ -201,14 +264,18 @@ class App extends Component {
           <Route
               path="/new-activity"
               render={() => (
-                <NewActivityContainer backToActivities={this.backToActivities}/>
+                <NewActivityContainer
+                backToActivities={this.backToActivities}
+                newActivitySubmitHandler={this.newActivitySubmitHandler}/>
 
               )}
             />
             <Route
                 path="/new-journal-entry"
                 render={() => (
-                  <NewJournalEntryContainer user={this.state.userInfo}
+                  <NewJournalEntryContainer
+                   user={this.state.userInfo}
+                   newJournalEntrySubmitHandler={this.newJournalEntrySubmitHandler}
                   activityId={this.state.activityId} />
                 )}
               />
@@ -233,6 +300,7 @@ class App extends Component {
               path="/"
               render={() => (
                 <ActivityContainer
+                  ref={this.child}
                   updateUser={this.updateUser}
                   user={this.state.userLocalStorage} newActivityForm={this.newActivityForm} />
               )}

@@ -51,24 +51,24 @@ class ActivityContainer extends Component {
   }
 
   tryActivity = (activity) => {
-    this.findOrCreateActivity(activity)
+    this.findOrCreateActivity(activity, true)
 
     this.setState({
       savedActivities:[...this.state.savedActivities, this.state.activity]
     }, this.getNewActivity())
   }
 
-  findOrCreateActivity = (activity) => {
+  findOrCreateActivity = (activity, userWantsActivity) => {
     fetch("http://localhost:3001/api/v1/selected_activity", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({activity: activity.activity, category: activity.type})
+      body: JSON.stringify({activity: activity.activity, category: activity.type, link: activity.link})
     })
     .then(resp => resp.json())
     .then(activity => {
-      this.addActivityToUserSaved(activity, this.props.user)
+      userWantsActivity && this.addActivityToUserSaved(activity, this.props.user)
     })
   }
 

@@ -8,23 +8,33 @@ class Journal extends Component {
   // display activity, states and button that says "tried yet?"
 
   journalEntriesInfo = () => {
-    return this.props.user.journals.length === 0 ? this.noJournalEntries() : this.returnActivities()
+    return this.props.user.journals.length === 0 ? this.noJournalEntries() : this.returnJournalEntries()
   }
 
   noJournalEntries = () => {
-    return <div className="noneMessage">
+    return <h2 className="noneMessage">
       You haven't written any entries yet! Check your <Link to="/saved-activities">saved activities</Link> to journal about a specific activity.
-    </div>
+    </h2>
   }
 
   returnJournalEntries = () => {
     let journalEntries = this.props.user.journals
-
+    return journalEntries.map(entry => this.journalEntryHTML(entry) )
   }
 
-  journalEntryHTML = (journalEntry) => {
-
+  journalEntryHTML = (entry) => {
+    return <div className="entry">
+    <div className="entry">
+      {this.returnActivity(entry.activity_id)}
+    </div>
+    </div>
   }
+
+  returnActivity = (activityId) => {
+    return this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
+  }
+
+
 
 
   render(){
@@ -32,11 +42,14 @@ class Journal extends Component {
     return(
       <React.Fragment>
         <div>Journal Entries</div>
-        <div className="journalEntries">
-            {this.props.user && this.journalEntriesInfo()}
+        <div className="journalEntryContainer">
+          <div className="journalEntries">
+              {this.props.user && this.journalEntriesInfo()}
+          </div>
         </div>
+
         <Link className="link" to="/">
-          <div className="navitem">back to swiping!</div>
+          <div className="navitem swipe">back to swiping!</div>
         </Link>
       </React.Fragment>
     )

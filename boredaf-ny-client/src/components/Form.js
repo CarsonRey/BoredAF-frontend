@@ -9,14 +9,14 @@ class Form extends Component {
     activity: '',
     link: '',
     category: '',
-    saveOrNot: '',
+    saveOrNot: false,
     free: '',
     date: '',
     participants: '',
     learned: '',
     favorite_part: '',
     least_favorite: '',
-    would_do_again: ''
+    would_do_again: false
   }
 
   handleChange = (e, ) => {
@@ -25,9 +25,10 @@ class Form extends Component {
     })
   }
 
+
   newActivityFormHTML = () => {
     const options = ["Please Select", "Education", "Recreational", "Social", "DIY", "Charity", "Cooking", "Relaxation", "Music", "Busywork"]
-    return   <form onChange={(e)=> {this.handleChange(e)}} className="form">
+    return   <form onSubmit={ e => {this.props.newActivity(e, this.state)}} onChange={(e)=> {this.handleChange(e)}} className="form">
       <div className="">new activity</div>
       <label htmlFor="activity">Activity </label>
         <p>Please start the activity with a command/ verb</p>
@@ -52,11 +53,11 @@ class Form extends Component {
         <div>Yes <input  className="radio" type="radio"  value={true} name="saveOrNot"/></div>
       </div> <br/>
 
-      <div onChange={(e)=> {this.handleChange(e)}} className="">
+      {/* <div onChange={(e)=> {this.handleChange(e)}} className="">
         <p>Is this activity free?</p>
         <div>No <input className="radio" type="radio" value={false} defaultChecked name="free"/></div>
         <div>Yes <input className="radio" type="radio" value={true} name="free"/></div>
-      </div> <br/>
+      </div> <br/> */}
 
       <input className="input" type="submit" value="Add Activity"/> <br/>
 
@@ -68,16 +69,13 @@ class Form extends Component {
   }
 
   returnActivityName = (activityId) => {
-// (!!this.props.user === true) && console.log(`${this.props.user.activities.filter(activity => activity.id === activityId)[0]}`)
-
-
     return this.props.user && this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
   }
 
   journalEntryFormHTML = () => {
-    return <form onChange={(e)=> {this.handleChange(e)}} className="form">
+    return <form onSubmit={ e => {this.props.newEntry(e, this.state)}} onChange={(e)=> {this.handleChange(e)}} className="form">
 
-      <label htmlFor="date">When did you... <br/> <span >{this.returnActivityName(this.props.activityId)}</span>?</label>
+      <label htmlFor="date">When did you... <br/> <span className="specific-activity"  >{this.returnActivityName(this.props.activityId)}</span>?</label>
       <input  name="date" className="input" type="date"/>
 
       <label htmlFor="participants">Who were you with?</label>
@@ -98,8 +96,7 @@ class Form extends Component {
         <div>Yes <input className="radio" type="radio" value={true} name="would_do_again"/></div>
       </div>
 
-      <input  type="submit" value="Save and Edit Later"/>
-      <input  type="submit" value="New Journal Entry"/>
+      <input className="input" type="submit" value="New Journal Entry"/>
 
       <Link to="/saved-activities" >
         <div className="">cancel</div>
@@ -118,8 +115,8 @@ class Form extends Component {
   }
 
   render(){
-  console.log("in form, the user is",this.props.user)
-  console.log("in form, the activityid is",this.props.activityId)
+  console.log("in form, the category is",this.state.category)
+  // console.log("in form, the activityid is",this.props.activityId)
 
     return(
         <React.Fragment>

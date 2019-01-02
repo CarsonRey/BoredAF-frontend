@@ -12,9 +12,9 @@ class SavedActivities extends Component {
   }
 
   noSavedActivities = () => {
-    return <div className="noneMessage">
-      No saved activities! Click the button below to discover what you can do.
-    </div>
+    return <h2 className="noneMessage">
+      No saved activities! <br/> Click the button below to discover activities <br/> ⇓
+    </h2>
   }
 
   returnActivities = () => {
@@ -80,7 +80,7 @@ class SavedActivities extends Component {
         </div>
 
         <Link className="link" to="/">
-          <div className="navitem">back to swiping!</div>
+          <div className="navitem swipe">back to swiping!</div>
         </Link>
       </React.Fragment>
     )

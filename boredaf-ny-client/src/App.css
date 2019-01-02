@@ -120,7 +120,7 @@ html,body {padding:0; margin:0; }
 }
 
 .ActivityContainer{
-  border: 1px solid black;
+  border: 1px solid darkgrey;
   border-radius: 10px;
   width: 50%;
   margin: auto;
@@ -132,6 +132,7 @@ html,body {padding:0; margin:0; }
 .dropdown {
   /* float: left; */
   overflow: hidden;
+  background: darkgrey;
 }
 
 .dropdown .dropbtn {
@@ -143,6 +144,8 @@ html,body {padding:0; margin:0; }
   background-color: inherit;
   font-family: inherit;
   margin: 0;
+  font-weight: bold;
+  color: white;
 }
 
 .dropdown-content {
@@ -173,13 +176,21 @@ html,body {padding:0; margin:0; }
 }
 
 .activity{
-  border: 1px solid black;
+  border: 1px solid darkgrey;
   border-radius: 10px;
   width: 50%;
   margin: auto;
   margin-top: 10%;
   font-size: 20px;
-  background-color: white;
+  background-color: darkgrey;
+  color: white;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+.activity h3 {
+  padding: 12% 0;
 }
 
 .choice {
@@ -317,16 +328,17 @@ div{
   width: 70%;
   margin: auto;
   padding: 0px 10px 20px 10px;
-  border: 1px solid black;
+  border: 1px solid darkgrey;
   border-radius: 10px;
   height: 60%;
   overflow: scroll;
+  background: white;
 }
 
 
 .savedActivities{
   margin: auto;
-  margin-top: 40px;
+  margin-top: 5%;
 }
 
 .th {
@@ -337,9 +349,9 @@ div{
 .headers{
   margin: 0 14.25%;
   position: absolute;
-  background:lightgrey;
+  background:darkgrey;
   width: 71.35%;
-  border: 1px solid;
+  border: 1px solid darkgrey;
   font-weight: bold;
   /* border-bottom: 1px solid;
   border-top: 1px solid; */
@@ -352,9 +364,20 @@ div{
 
 }
 
+
 .saved-row{
   text-align: left;
   margin: 15px;
+  background-color: darkgrey;
+  border-radius: 10px;
+  /* background: rgba(117,119,119, 0.5); */
+  font-weight: bold;
+  color: white;
+
+}
+
+.th{
+  color: white;
 }
 
 .td{
@@ -365,15 +388,16 @@ div{
   width: 55%;
 }
 .data-activity{
-  text-align: left;
-  width: 62%;
+  text-align: center;
+  width: 65%;
 }
 
 .table-category{
   width: 14%;
 }
 .data-category{
-  width: 14%;
+  text-align: center;
+  width: 11.5%;
 }
 
 .tb-btn {
@@ -389,7 +413,13 @@ div{
 .btn-try, .btn-journal{
   text-align: center;
   width: 4%;
-  margin:auto;
+  margin: 3px 2.1%;
+
+  text-shadow:
+    -1px -1px 0 #5d5e5e,
+    1px -1px 0 #5d5e5e,
+    -1px 1px 0 #5d5e5e,
+    1px 1px 0 #5d5e5e;
 }
 
 .btn-try:hover, .btn-journal:hover{
@@ -399,30 +429,18 @@ div{
 
 
 .btn-try{
-  padding: 12px 10px;
-  margin-right: 2.5%;
-  /* padding: 10px 3px; */
-}
+  padding: 6px 10px;
+  margin-right: 5px;
 
-.myVideo{
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-  width: 100%;
-  min-height: 100%;
-  z-index: -99;
-  opacity: .50;
 }
 
 .btn-journal{
-  padding: 6px 3px  9px 10px;
+  padding: 6px 10px;
+
 }
 
 .delete{
-  margin-left: 1.5%;
+  /* margin-left: 1.5%; */
   width: 2%;
   text-align: center;
   display: inline-block;
@@ -430,6 +448,11 @@ div{
   color:white;
   padding: 0 2px;
   border-radius: 4px;
+  text-shadow:
+    -1px -1px 0 #5d5e5e,
+    1px -1px 0 #5d5e5e,
+    -1px 1px 0 #5d5e5e,
+    1px 1px 0 #5d5e5e;
 }
 .delete:hover{
   background-color: lightgrey;
@@ -442,9 +465,6 @@ div{
   width:10%;
 }
 
- .data-activity {
-  text-align: left;
-}
 
 
 .form{
@@ -485,12 +505,12 @@ div{
 }
 
 @keyframes rainbow{
-  0%{color: orange;}
-  10%{color: purple;}
-	20%{color: red;}
-	40%{color: yellow;}
-	60%{color: green;}
-	100%{color: orange;}
+  0%{color: #67f4f3;}
+  10%{color: #f367bd;}
+	20%{color: #67f4f3;}
+	40%{color: #f367bd;}
+	60%{color: #67f4f3;}
+	100%{color: #f367bd;}
 }
 
 .form p {
@@ -510,4 +530,17 @@ div{
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
+}
+
+.myVideo{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100%;
+  min-height: 100%;
+  z-index: -99;
+  opacity: .50;
 }

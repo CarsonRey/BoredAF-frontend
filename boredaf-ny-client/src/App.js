@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ActivityContainer from './containers/ActivityContainer'
 import NewActivityContainer from './containers/NewActivityContainer'
+import NewJournalEntryContainer from './containers/NewJournalEntryContainer'
 import NavBar from './components/NavBar'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
 import SavedActivities from './components/SavedActivities'
-import Nearby from './components/Nearby'
+import Journal from './components/Journal'
 import { Switch, Route, withRouter } from "react-router-dom";
 import video from './bored1.mov'
 
@@ -16,7 +17,8 @@ class App extends Component {
   state = {
     userLocalStorage: null,
     userSavedActivities: [],
-    userInfo: null
+    userInfo: null,
+    activityId: null
   }
 
   signupFormSubmitHandler = (e, userInfo) => {
@@ -30,6 +32,12 @@ class App extends Component {
     this.getUser(userInfo);
     this.props.history.push("/");
   };
+
+  setActivityIdForJournal = (activityId) => {
+    this.setState({
+      activityId: activityId
+    })
+  }
 
   createUser = (userInfo) => {
     fetch("http://localhost:3001/api/v1/users", {
@@ -161,7 +169,7 @@ class App extends Component {
   }
 
   render() {
-    // console.log("before fetching User", this.state.userLocalStorage )
+    console.log("activity to be journaled", this.state.activityId )
 
     return (
 // frontend-bored-af-ny/boredaf-ny-client/src/App.js
@@ -197,20 +205,28 @@ class App extends Component {
 
               )}
             />
+            <Route
+                path="/new-journal-entry"
+                render={() => (
+                  <NewJournalEntryContainer user={this.state.userInfo}
+                  activityId={this.state.activityId} />
+                )}
+              />
           <Route
               path="/saved-activities"
               onEnter={this.requireAuth}
               render={() => (
                 <SavedActivities
+                 setActivityIdForJournal={this.setActivityIdForJournal}
                  delete={this.deleteAssociation}
                  changeTried={this.changeTried}
                  user={this.state.userInfo}/>
               )}
             />
           <Route
-              path="/nearby"
+              path="/journal"
               render={() => (
-                <Nearby />
+                <Journal user={this.state.userInfo} />
               )}
             />
           <Route

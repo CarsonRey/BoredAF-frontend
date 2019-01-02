@@ -8,7 +8,13 @@ class SavedActivities extends Component {
   // display activity, states and button that says "tried yet?"
 
   savedActivityInfo = () => {
-    return this.props.user.user_activities.length === 0 ? "No saved activities! Click the button below to discover what you can do." : this.returnActivities()
+    return this.props.user.user_activities.length === 0 ? this.noSavedActivities() : this.returnActivities()
+  }
+
+  noSavedActivities = () => {
+    return <div className="noneMessage">
+      No saved activities! Click the button below to discover what you can do.
+    </div>
   }
 
   returnActivities = () => {
@@ -23,15 +29,19 @@ class SavedActivities extends Component {
 
   }
 
+
+
   activityHTML = (association) => {
     let activity = this.returnActivity(association.activity_id)[0]
     // debugger
     return <div className="saved-row">
-        <div className="td data-activity saved-row" >{activity.activity}</div>
+        <div className="td data-activity" >{activity.activity}</div>
         {/* <div className="activity-info"> */}
           <div className="td data-category">{activity.category}</div>
-          <div className="td btn-try tb-btn"  onClick={() => this.props.changeTried(association)}>{association.tried ? "✓" : "✘"}</div>
-          <div className="td btn-journal tb-btn">✏️</div>
+          <span role="img" alt={association.tried? "thumbs up": "thumbs down"} className="td btn-try tb-btn"  onClick={() => this.props.changeTried(association)}>{association.tried ? "👍" : "👎"}</span>
+          <Link className="link" onClick={()=> {this.props.setActivityIdForJournal(activity.id)}} to="/new-journal-entry">
+          <span role="img" className="td btn-journal tb-btn">✏️</span>
+          </Link>
           <div className="delete" onClick={()=> this.props.delete(association)}>x</div>
         {/* </div> */}
 

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Form from '../components/Form'
 
 const NewActivityContainer = (props) => {
     return(
-        <Form context="NewActivityContainer" backToActivities={props.backToActivities}/>
+        <Form context="NewActivityContainer" />
     )
 }
 

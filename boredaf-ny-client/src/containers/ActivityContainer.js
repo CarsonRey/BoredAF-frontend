@@ -46,8 +46,8 @@ class ActivityContainer extends Component {
     })
   }
 
-  makeChoice = (button, activity) => {
-    button === 'try' ? this.tryActivity(activity) : this.declineActivity(activity)
+  makeChoice = (button) => {
+    button === 'try' ? this.tryActivity(this.state.activity) : this.declineActivity(this.state.activity)
   }
 
   tryActivity = (activity) => {
@@ -91,7 +91,7 @@ class ActivityContainer extends Component {
   }
 
   render(){
-    // console.log("activity id is", this.state.seenActivities)
+    console.log(" in activitycontainer activity is", this.state.activity)
     // console.log("bye", this.state.declinedActivities)
     // console.log("saved", this.state.savedActivities)
     // console.log("in ActivityContainer filter is", this.state.filter)

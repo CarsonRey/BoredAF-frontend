@@ -8,6 +8,7 @@ class Journal extends Component {
   // display activity, states and button that says "tried yet?"
 
   journalEntriesInfo = () => {
+
     return this.props.user.journals.length === 0 ? this.noJournalEntries() : this.returnJournalEntries()
   }
 
@@ -18,21 +19,36 @@ class Journal extends Component {
   }
 
   returnJournalEntries = () => {
+
     let journalEntries = this.props.user.journals
     return journalEntries.map(entry => this.journalEntryHTML(entry) )
   }
 
-  journalEntryHTML = (entry) => {
-    return <div className="entry">
-    <div className="entry">
-      {this.returnActivity(entry.activity_id)}
-    </div>
-    </div>
-  }
-
   returnActivity = (activityId) => {
+    // debugger
     return this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
   }
+
+  journalEntryHTML = (entry) => {
+
+    return   <div className="saved-row">
+        <div className="td data-activity" > {this.returnActivity(entry.activity_id)}</div>
+          <Link className="link"  to="/">
+          <span >edit</span>
+          </Link>
+          <Link className="link"  to="/">
+          <span >x</span>
+          </Link>
+          {/* <div className="delete" onClick={()=> this.props.delete(association)}>x</div> */}
+      </div>
+    }
+
+
+
+
+
+
+
 
 
 
@@ -42,8 +58,13 @@ class Journal extends Component {
     return(
       <React.Fragment>
         <div>Journal Entries</div>
-        <div className="journalEntryContainer">
-          <div className="journalEntries">
+        <div className="headers">
+          <div className="th table-activity">activity</div>
+          <div className="th table-try">edit</div>
+          <div className="th table-journal">delete</div>
+        </div>
+        <div className="container">
+          <div className="info">
               {this.props.user && this.journalEntriesInfo()}
           </div>
         </div>

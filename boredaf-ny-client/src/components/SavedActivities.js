@@ -33,14 +33,13 @@ class SavedActivities extends Component {
 
   activityHTML = (association) => {
     let activity = this.returnActivity(association.activity_id)[0]
-    // debugger
-    return <div className="saved-row">
+    return <div key={activity}className="saved-row">
         <div className="td data-activity" >{activity.activity}</div>
         {/* <div className="activity-info"> */}
           <div className="td data-category">{activity.category}</div>
-          <span role="img" alt={association.tried? "thumbs up": "thumbs down"} className="td btn-try tb-btn"  onClick={() => this.props.changeTried(association)}>{association.tried ? "👍" : "👎"}</span>
+          <span role="img" alt={association.tried? "thumbs up": "thumbs down"} className="td btn-try tb-btn"  onClick={() => this.props.changeTried(association, false)}>{association.tried ? "👍" : "👎"}</span>
           <Link className="link" onClick={()=> {this.props.setActivityIdForJournal(activity.id)}} to="/new-journal-entry">
-          <span role="img" className="td btn-journal tb-btn">✏️</span>
+          <span role="img" className="td btn-journal tb-btn">{association.journaled ? "📖" : "✏️"}</span>
           </Link>
           <div className="delete" onClick={()=> this.props.delete(association)}>x</div>
         {/* </div> */}
@@ -72,9 +71,9 @@ class SavedActivities extends Component {
           <div className="th table-try">tried</div>
           <div className="th table-journal">journal</div>
         </div>
-        <div className="savedActivitiesTable">
+        <div className="container">
 
-          <div className="savedActivities">
+          <div className="info">
             {this.props.user && this.savedActivityInfo()}
           </div>
         </div>

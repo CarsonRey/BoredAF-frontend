@@ -36,11 +36,11 @@ class App extends Component {
   newJournalEntrySubmitHandler = (e, form) => {
     e.preventDefault();
     this.createEntry(form)
-    this.fetchUser()
-    this.props.history.push("/journal");
+
   };
 
   createEntry = (form) => {
+    // debugger
     fetch("http://localhost:3001/api/v1/journals", {
       method: "POST",
       headers: {
@@ -61,7 +61,10 @@ class App extends Component {
     })
     .then(resp=> resp.json())
     .then(entry => {
-      console.log(entry)
+      let association = this.state.userInfo.user_activities.filter(association => association.activity_id === this.state.activityId)[0]
+      this.fetchUser()
+      this.changeTriedOrJournaled(association, true)
+      this.props.history.push("/journal");
     })
   }
 
@@ -88,12 +91,14 @@ class App extends Component {
   }
 
   addActivityToUserSaved = (activity, user) => {
+    let body = {activity_id: activity.id , user_id: user.id}
+
     fetch("http://localhost:3001/api/v1/user_activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({activity_id: activity.id, user_id: user.id})
+      body: JSON.stringify(body)
     })
     .then(resp => resp.json())
     .then(association => this.fetchUser())
@@ -202,20 +207,20 @@ class App extends Component {
     })
   }
 
-  changeTried = (association) => {
-    console.log("before the fetch the activity tried is", association.tried)
+  changeTriedOrJournaled = (association, fromJournal) => {
+    // debugger
+    let journalCondition = fromJournal? !association.journaled : false
+    let body = {tried: !association.tried, journaled: journalCondition}
+
     fetch(`http://localhost:3001/api/v1/user_activities/${association.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        tried: !association.tried
-      })
+      body: JSON.stringify({body})
     })
     .then(resp => resp.json())
     .then(changedAssociation => {
-      console.log("after the fetch the activity tried is", changedAssociation.tried)
       this.fetchUser()
     })
   }
@@ -286,14 +291,15 @@ class App extends Component {
                 <SavedActivities
                  setActivityIdForJournal={this.setActivityIdForJournal}
                  delete={this.deleteAssociation}
-                 changeTried={this.changeTried}
+                 changeTried={this.changeTriedOrJournaled}
                  user={this.state.userInfo}/>
               )}
             />
           <Route
               path="/journal"
               render={() => (
-                <Journal user={this.state.userInfo} />
+                <Journal user={this.state.userInfo}
+                activityId={this.state.activityId} />
               )}
             />
           <Route

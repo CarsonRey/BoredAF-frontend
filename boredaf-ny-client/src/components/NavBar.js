@@ -15,7 +15,7 @@ class NavBar extends React.Component{
         if (this.numberSaved() === 0){
           return  <div className="noneSaved">{localStorage.length === 0 && this.numberSaved()}</div>
         } else if (this.numberSaved() > 0) {
-          return <div className={ this.props.user ? "numberSavedLoggedIn" : "numberSaved"}>{this.numberSaved()}</div>
+          return <span className={ this.props.user ? "numberSavedLoggedIn" : "numberSaved"}>{this.numberSaved()}</span>
         }
       }
     }
@@ -41,8 +41,11 @@ class NavBar extends React.Component{
       </div>
 
       <Link className="link" to="/saved-activities">
-        <div className="navitem">saved</div>
+
+        <div className="navitem ">saved</div>
         {this.returnSavedBubble()}
+    
+
       </Link>
     </div>
   );

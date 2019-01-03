@@ -259,7 +259,11 @@ div{
   font-weight: bold;
   font-family: Palatino;
   font-size: 20px;
-  /* position: absolute; */
+}
+
+.navitem.saved-fix{
+  position: relative;
+
 }
 
 .swipe{
@@ -286,20 +290,28 @@ div{
   padding: 6px 10px;
 }
 
+/* .saved-fix{
+  margin: 100px auto;
+  text-align: center;
+} */
+
 .numberSavedLoggedIn{
-  right: 10.75%;
-  top: 10.95%;
-  display: block;
+  /* display: block; */
   position: absolute;
   background-color: red;
   color: white;
   font-weight: bold;
   border-radius: 50px;
+  right: 155px;
+  top: 83px;
   padding: 6px 10px;
+
 }
+
 
 .noneSaved{
   display: none;
+  padding: 4px 4px 0 0;
 }
 
 .link{
@@ -646,7 +658,7 @@ font-size: 15px;
 }
 
 .logout{
-  margin: 3% 0 0 90%;
+  margin: 2% 0 0 90%;
   display: inline-block;
 
 }
@@ -662,7 +674,15 @@ span.journal-btn.delete{
 }
 
 div.btn-position{
-
   display: inline-block;
   width: 35%;
+}
+
+.btn-position:after{
+  content: "\a \a";
+  white-space: pre;
+  white-space: pre;
+  padding: 100% 0;
+
+  height: 30%;
 }

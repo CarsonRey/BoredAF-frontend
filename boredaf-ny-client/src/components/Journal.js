@@ -51,6 +51,8 @@ class Journal extends Component {
           <Link  className="link"  to="/journal">
             <span className="journal-btn delete" onClick={() => this.props.deleteJournalEntry(entry, association, true)} >x</span>
           </Link>
+          {/* <br/> */}
+          <br/>
         </div>
 
           {/* <div className="delete" onClick={()=> this.props.delete(association)}>x</div> */}

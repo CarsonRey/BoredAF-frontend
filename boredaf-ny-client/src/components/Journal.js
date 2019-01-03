@@ -4,9 +4,6 @@ import { Link , Redirect} from "react-router-dom";
 class Journal extends Component {
 
 
-  // this will have a user prop passed down from app where we can access the user's activivies and iterate through them;
-  // display activity, states and button that says "tried yet?"
-
   journalEntriesInfo = () => {
 
     return this.props.user.journals.length === 0 ? this.noJournalEntries() : this.returnJournalEntries()
@@ -46,27 +43,19 @@ class Journal extends Component {
         Favorite part: <span className="entryText">{entry.favorite_part}</span> <br/>
         Least favorite:  <span className="entryText">{entry.least_favorite} </span><br/>
         </div>
+
+        <div className="btn-position">
           <Link className="link"  to="/">
-          <span className="journal-btn td btn-try tb-btn" >edit</span>
+            <span className="journal-btn td btn-try tb-btn" >edit</span>
           </Link>
           <Link  className="link"  to="/journal">
-          <span className="journal-btn delete" onClick={() => this.props.deleteJournalEntry(entry, association, false)} >x</span>
+            <span className="journal-btn delete" onClick={() => this.props.deleteJournalEntry(entry, association, true)} >x</span>
           </Link>
+        </div>
+
           {/* <div className="delete" onClick={()=> this.props.delete(association)}>x</div> */}
       </div>
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
   render(){
     console.log(this.props.user)

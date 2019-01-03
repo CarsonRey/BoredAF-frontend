@@ -2,7 +2,6 @@
   text-align: center;
   width: 100%;
   height: 100vh;
-  border: 1px solid;
 }
 
 html,body {padding:0; margin:0; }
@@ -277,7 +276,7 @@ div{
 
 .numberSaved {
   display: block;
-  position: absolute;
+  position: relative;
   right: 10.5%;
   top: 4.5%;
   background-color: red;
@@ -442,8 +441,6 @@ div{
   border-radius: 5px;
   background-color: lightgrey;
 }
-
-
 
 .journal-btn {
   margin-left: 10%;
@@ -652,4 +649,20 @@ font-size: 15px;
   margin: 3% 0 0 90%;
   display: inline-block;
 
+}
+
+span.journal-btn.td.btn-try.tb-btn {
+  margin-left: 52%;
+  width: 27px;
+}
+
+span.journal-btn.delete{
+  margin-left: 3.5%;
+  width: 12px;
+}
+
+div.btn-position{
+
+  display: inline-block;
+  width: 35%;
 }

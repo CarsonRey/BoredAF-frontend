@@ -190,13 +190,13 @@ html,body {padding:0; margin:0; }
 }
 
 .activity h3 {
-  padding: 12% 0;
+  padding: 11% 0;
 }
 
 .choice {
   /* width: 90%;
   right: 0; */
-  padding: 12% 30px 40px 30px;
+  padding: 65px 30px 40px 30px;
   display: flex;
   justify-content: space-around;
   /* float: left; */
@@ -275,7 +275,8 @@ div{
   animation: rainbow 6s infinite;
 }
 
-.numberSaved{
+.numberSaved {
+  display: block;
   position: absolute;
   right: 10.5%;
   top: 4.5%;
@@ -284,7 +285,22 @@ div{
   font-weight: bold;
   border-radius: 50px;
   padding: 6px 10px;
+}
 
+.numberSavedLoggedIn{
+  right: 10.75%;
+  top: 10.95%;
+  display: block;
+  position: absolute;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border-radius: 50px;
+  padding: 6px 10px;
+}
+
+.noneSaved{
+  display: none;
 }
 
 .link{
@@ -342,7 +358,7 @@ div{
   padding: 0px 10px 20px 10px;
   border: 1px solid darkgrey;
   border-radius: 10px;
-  height: 60%;
+  height: 50%;
   overflow: scroll;
   background: white;
 }
@@ -373,6 +389,7 @@ div{
   border-radius: 5px 5px 0px 0px;
 }
 
+
 .activity-info{
   display: inline-block;
   float:right;
@@ -388,7 +405,6 @@ div{
   /* background: rgba(117,119,119, 0.5); */
   font-weight: bold;
   color: white;
-
 }
 
 .th{
@@ -402,6 +418,12 @@ div{
 .table-activity{
   width: 55%;
 }
+
+.table-activity-j{
+  width: 55%;
+  margin-right: 17%;
+}
+
 .data-activity{
   text-align: center;
   width: 65%;
@@ -417,6 +439,16 @@ div{
 
 .tb-btn {
   margin: 4px 0px;
+  border-radius: 5px;
+  background-color: lightgrey;
+}
+
+
+
+.journal-btn {
+  margin-left: 10%;
+  text-align: center;
+  width: 4%;
   border-radius: 5px;
   background-color: lightgrey;
 }
@@ -520,6 +552,8 @@ form.form label {
 
 }
 
+
+
 a {
 font-size: 15px;
 }
@@ -589,4 +623,33 @@ font-size: 15px;
   min-height: 100%;
   z-index: -99;
   opacity: .50;
+}
+
+.entryText{
+  font-weight: lighter;
+  font-style: italic;
+}
+
+.journalEntry{
+  padding: 10px 0;
+}
+
+.journal-activity{
+
+}
+
+.authPrompt {
+  display: inline-block;
+  margin: auto;
+  padding: 20px 10px;
+  font-weight: bold;
+  color:dimgrey;
+  border-radius: 15px;
+  background: white;
+}
+
+.logout{
+  margin: 3% 0 0 90%;
+  display: inline-block;
+
 }

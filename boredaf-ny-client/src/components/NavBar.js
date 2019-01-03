@@ -2,8 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 class NavBar extends React.Component{
+
+
+    numberSaved = () => {
+      // if number saved is zero toggle noneSaved
+      let number = this.props.user.user_activities.filter(association => association.tried === false || association.tried === null).length
+      return number
+    }
+
+    returnSavedBubble = () => {
+      if (this.props.user){
+        if (this.numberSaved() === 0){
+          return  <div className="noneSaved">{localStorage.length === 0 && this.numberSaved()}</div>
+        } else if (this.numberSaved() > 0) {
+          return <div className={ this.props.user ? "numberSavedLoggedIn" : "numberSaved"}>{this.numberSaved()}</div>
+        }
+      }
+    }
+
+
+
   render(){
-    // console.log("the current container is ", this)
+
   return (
     <div className="navContainer">
 
@@ -22,12 +42,14 @@ class NavBar extends React.Component{
 
       <Link className="link" to="/saved-activities">
         <div className="navitem">saved</div>
-        <div className="numberSaved">{this.props.user && this.props.user.user_activities.filter(association => association.tried === false || association.tried === null).length}</div>
+        {this.returnSavedBubble()}
       </Link>
     </div>
   );
 }
 };
+
+
 
 
 

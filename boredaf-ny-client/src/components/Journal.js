@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link , Redirect} from "react-router-dom";
 
 class Journal extends Component {
 
@@ -37,18 +37,20 @@ class Journal extends Component {
   journalEntryHTML = (entry) => {
     let association = this.returnAssociation(entry)
     return   <div className="saved-row">
-        <div className="td data-activity" > {this.returnActivity(entry.activity_id)} <br/>
-        When: {entry.date} <br/>
-        Who: {entry.participants} <br/>
-        Learned: {entry.learned} <br/>
-        Favorite part:{entry.favorite_part} <br/>
-        Least favorite: {entry.least_favorite} <br/>
+
+        <div className="journalEntry td data-activity" >
+        <span className="journal-activity">{this.returnActivity(entry.activity_id)}</span> <br/> <br/>
+        When:  <span className="entryText">{entry.date}</span> <br/>
+        Who:  <span className="entryText">{entry.participants}</span> <br/>
+        Learned:  <span className="entryText">{entry.learned}</span> <br/>
+        Favorite part: <span className="entryText">{entry.favorite_part}</span> <br/>
+        Least favorite:  <span className="entryText">{entry.least_favorite} </span><br/>
         </div>
           <Link className="link"  to="/">
           <span className="journal-btn td btn-try tb-btn" >edit</span>
           </Link>
           <Link  className="link"  to="/journal">
-          <span className="delete" onClick={() => this.props.deleteJournalEntry(entry, association)} >x</span>
+          <span className="journal-btn delete" onClick={() => this.props.deleteJournalEntry(entry, association, false)} >x</span>
           </Link>
           {/* <div className="delete" onClick={()=> this.props.delete(association)}>x</div> */}
       </div>
@@ -70,15 +72,15 @@ class Journal extends Component {
     console.log(this.props.user)
     return(
       <React.Fragment>
-        <div>Journal Entries</div>
+        <div className="formName">Journal Entries</div>
         <div className="headers">
-          <div className="th table-activity">activity</div>
+          <div className="th table-activity-j">activity</div>
           <div className="th table-try">edit</div>
           <div className="th table-journal">delete</div>
         </div>
         <div className="container">
           <div className="info">
-              {this.props.user && this.journalEntriesInfo()}
+              { this.props.user? this.journalEntriesInfo() : <Redirect to="login"/>}
           </div>
         </div>
 

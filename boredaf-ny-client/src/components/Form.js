@@ -61,7 +61,7 @@ class Form extends Component {
 
       <input className="input" type="submit" value="Add Activity"/> <br/>
 
-      <Link to="/" >
+      <Link className="link" to="/" >
         <div className="">cancel</div>
       </Link>
 

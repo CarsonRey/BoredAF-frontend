@@ -7,7 +7,8 @@ import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
 import SavedActivities from './components/SavedActivities'
 import Journal from './components/Journal'
-import { Switch, Route, withRouter } from "react-router-dom";
+import Logout from './components/Logout'
+import { Switch, Route, withRouter, Link } from "react-router-dom";
 import video from './bored1.mov'
 
 import './App.css';
@@ -151,7 +152,7 @@ class App extends Component {
       localStorage.setItem("token", resp.jwt);
       this.setState({
         userLocalStorage: resp.user
-      });
+      }, this.componentDidMount());
     });
   }
 
@@ -226,40 +227,53 @@ class App extends Component {
     })
   }
 
-  deleteAssociation = (association) => {
-
+  deleteAssociation = (association, hasBeenJournaled) => {
     fetch(`http://localhost:3001/api/v1/delete_association/${association.id}`, {method: "POST"})
     .then(resp => resp.json())
-    .then(()=> this.fetchUser() )
-  }
-
-  deleteJournalEntry = (journalEntry, association) => {
-    fetch(`http://localhost:3001/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
-    .then(resp => resp.json())
     .then(()=> {
-      this.changeTriedOrJournaled(association, true)
+      if (hasBeenJournaled){
+        let journalEntry = this.state.userInfo.journals.filter(journal => journal.activity_id === association.activity_id)[0]
+        this.deleteJournalEntry(journalEntry, association, true)
+      }
       this.fetchUser()
     })
   }
 
+  deleteJournalEntry = (journalEntry, association, requestIsFromSavedActivities) => {
+    // if the request is coming from savedActivities, we will not run the changeTriedOrJournaled. i
 
+    fetch(`http://localhost:3001/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
+    .then(resp => resp.json())
+    .then(()=> {
+      requestIsFromSavedActivities && this.changeTriedOrJournaled(association, true)
+      this.fetchUser()
+    })
+  }
 
   filterUserSaved = () => {
     return this.state.userSavedActivities
   }
 
-  render() {
-    console.log("activity to be journaled", this.state.activityId )
+  logout = () => {
+    localStorage.removeItem('token')
 
+    this.setState({
+      userInfo: null,
+      userLocalStorage: null
+    }, this.props.history.push("/login"))
+  }
+
+  render() {
+    console.log("userLocalStorage", this.state.userLocalStorage )
+    console.log("userInfo", this.state.userInfo )
     return (
-// frontend-bored-af-ny/boredaf-ny-client/src/App.js
-// frontend-bored-af-ny/boredaf-ny-client/src/bored.mp4
       <div className="App">
         <video className="myVideo" loop autoPlay muted >
           <source src={video} type="video/mp4"/>
           <source src={video} type="video/ogg"/>
           Your browser does not support the video tag.
         </video>
+        {this.state.userLocalStorage && (localStorage.length > 0) && <Logout logout={this.logout}/>}
         <NavBar user={this.state.userInfo}/>
         <Switch>
           <Route

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class SavedActivities extends Component {
 
@@ -8,7 +8,10 @@ class SavedActivities extends Component {
   // display activity, states and button that says "tried yet?"
 
   savedActivityInfo = () => {
-    return this.props.user.user_activities.length === 0 ? this.noSavedActivities() : this.returnActivities()
+    if (localStorage.length)
+      return this.props.user.user_activities.length === 0 ? this.noSavedActivities() : this.returnActivities()
+
+
   }
 
   noSavedActivities = () => {
@@ -49,18 +52,22 @@ class SavedActivities extends Component {
 
               }
 
-          <div className="delete" onClick={()=> this.props.delete(association)}>x</div>
+          <div className="delete" onClick={()=> this.alertMessage(association, association.journaled) }>x</div>
         {/* </div> */}
 
       </div>
   }
 
-  // 📝 or 📖
+  alertMessage = (association, hasBeenJournaled) => {
+    if (hasBeenJournaled){
+      if (window.confirm("Deleting an activity with that has been journaled will also delete it's journal entry, are you sure you want to continue?")) {
+       this.props.delete(association, hasBeenJournaled)
+       }
+    } else{
+      this.props.delete(association, hasBeenJournaled)
+    }
 
-  // changeTriedClickHandler = (activity) => {
-  //   let association = this.returnAssociation(activity.id)[0]
-  //   this.props.changeTried(association)
-  // }
+  }
 
   returnActivity = (activityId) => {
     return this.props.user.activities.filter(activity => activity.id === activityId)
@@ -82,7 +89,7 @@ class SavedActivities extends Component {
         <div className="container">
 
           <div className="info">
-            {this.props.user && this.savedActivityInfo()}
+            {this.props.user ? this.savedActivityInfo() : <Redirect to="/login"/>}
           </div>
         </div>
 

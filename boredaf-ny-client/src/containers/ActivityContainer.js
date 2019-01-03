@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import Activity from '../components/Activity'
 import Choice from '../components/Choice'
 import Filter from '../components/Filter'
@@ -90,23 +91,35 @@ class ActivityContainer extends Component {
     }, this.getNewActivity())
   }
 
+  logInOrSignUp = () => {
+    return <div className="authPrompt">
+            <Link to="/login" >
+              Log In
+            </Link> or <Link to="/signup" >
+              Sign Up </Link> to save activities and journal about them!
+          </div>
+  }
+
   render(){
     console.log(" in activitycontainer activity is", this.state.activity)
     // console.log("bye", this.state.declinedActivities)
     // console.log("saved", this.state.savedActivities)
     // console.log("in ActivityContainer filter is", this.state.filter)
 
-
-
     return(
       <React.Fragment>
+        <React.Fragment>
+          <div>{!this.props.user && this.logInOrSignUp()}</div>
+
         <div className="ActivityContainer">
+
           <Filter changeFilter={this.changeFilter}/>
           <Activity activity={this.state.activity} />
           <Choice
            activity={this.state.activity}
            newActivityForm={this.props.newActivityForm} makeChoice={this.makeChoice}/>
         </div>
+        </React.Fragment>
       </React.Fragment>
     )
   }

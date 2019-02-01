@@ -90,7 +90,8 @@ class SavedActivities extends Component {
         <div className="container">
 
           <div className="info">
-            {this.props.user ? this.savedActivityInfo() : setTimeout(()=> <Redirect to="/login"/>, 100)}
+            {/* {this.props.user ? this.savedActivityInfo() : setTimeout(()=> <Redirect to="/login"/>, 100)} */}
+            {localStorage.length ? this.savedActivityInfo() :  <Redirect to="/login"/>}
           </div>
         </div>
 

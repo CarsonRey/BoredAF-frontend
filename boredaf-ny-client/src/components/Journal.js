@@ -15,9 +15,12 @@ class Journal extends Component {
   }
 
   returnJournalEntries = () => {
+    let {user} = this.props
+    if (user){
+      let journalEntries = user.journals
+      return journalEntries.map(entry => this.journalEntryHTML(entry) )
+    }
 
-    let journalEntries = this.props.user.journals
-    return journalEntries.map(entry => this.journalEntryHTML(entry) )
   }
 
   returnActivity = (activityId) => {
@@ -73,7 +76,8 @@ class Journal extends Component {
         </div>
         <div className="container">
           <div className="info">
-              { this.props.user ? this.journalEntriesInfo() : setTimeout(()=> <Redirect to="/login"/>, 100)}
+              {/* { this.props.user ? this.journalEntriesInfo() : setTimeout(()=> <Redirect to="/login"/>, 100)} */}
+              { localStorage.length ? this.journalEntriesInfo() : <Redirect to="/login"/>}
           </div>
         </div>
 

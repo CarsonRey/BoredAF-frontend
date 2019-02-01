@@ -8,9 +8,9 @@ class SavedActivities extends Component {
   // display activity, states and button that says "tried yet?"
 
   savedActivityInfo = () => {
-    if (localStorage.length)
-      return this.props.user.user_activities.length === 0 ? this.noSavedActivities() : this.returnActivities()
-
+    if (this.props.user){
+      return  this.props.user.user_activities.length === 0 ? this.noSavedActivities() : this.returnActivities()
+    }
 
   }
 

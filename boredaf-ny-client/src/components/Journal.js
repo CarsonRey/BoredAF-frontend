@@ -21,7 +21,7 @@ class Journal extends Component {
   }
 
   returnActivity = (activityId) => {
-    debugger
+    // debugger
     return this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
   }
 
@@ -32,7 +32,7 @@ class Journal extends Component {
 
   journalEntryHTML = (entry) => {
     let association = this.returnAssociation(entry)
-    debugger
+    // debugger
     return   <div className="saved-row">
 
         <div className="journalEntry td data-activity" >

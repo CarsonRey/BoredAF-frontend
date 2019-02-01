@@ -5,21 +5,28 @@ import { Link } from "react-router-dom";
 
 class Form extends Component {
 
-  state = {
+constructor(props) {
+  super(props)
+
+  let { userClickedEdit, entryToBeChanged } = this.props
+
+  this.state = {
     activity: '',
     link: '',
     category: '',
     saveOrNot: false,
     free: '',
-    date: '',
-    participants: '',
-    learned: '',
-    favorite_part: '',
-    least_favorite: '',
-    would_do_again: false
+    date: userClickedEdit ? entryToBeChanged.date : '',
+    participants: userClickedEdit ? entryToBeChanged.participants : '',
+    learned: userClickedEdit ? entryToBeChanged.learned : '',
+    favorite_part: userClickedEdit ? entryToBeChanged.favorite_part : '',
+    least_favorite: userClickedEdit ? entryToBeChanged.least_favorite : '',
+    would_do_again: userClickedEdit ? entryToBeChanged.would_do_again : false,
+    id: userClickedEdit ? entryToBeChanged.id : null
   }
+}
 
-  handleChange = (e, ) => {
+  handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -73,30 +80,36 @@ class Form extends Component {
   }
 
   journalEntryFormHTML = () => {
-    return <form onSubmit={ e => {this.props.newEntry(e, this.state)}} onChange={(e)=> {this.handleChange(e)}} className="form">
+    return <form  onChange={(e)=> {this.handleChange(e)}} className="form">
 
       <label htmlFor="date">When did you... <br/> <span className="specific-activity"  >{this.returnActivityName(this.props.activityId)}</span>?</label>
-      <input  name="date" className="input" type="date"/>
+      <input value={this.state.date}  name="date" className="input" type="date"/>
 
       <label htmlFor="participants">Who were you with?</label>
-      <input name="participants" className="input" type="text"/>
+      <input value={this.state.participants} name="participants" className="input" type="text"/>
 
       <label htmlFor="learned">What did you learn?</label>
-      <textarea name="learned" className="input" id="" cols="30" rows="10"/>
+      <textarea value={this.state.learned} name="learned" className="input" id="" cols="30" rows="10"/>
 
       <label htmlFor="favorite_part">Favorite part?</label>
-      <input name="favorite_part" className="input" type="text"/>
+      <input value={this.state.favorite_part} name="favorite_part" className="input" type="text"/>
 
       <label htmlFor="least_favorite">Least favorite?</label>
-      <input name="least_favorite" className="input" type="text"/>
+      <input value={this.state.least_favorite} name="least_favorite" className="input" type="text"/>
 
       <div onChange={(e)=> {this.handleChange(e)}} className="">
         <p>Would you do it again?</p>
         <div>No <input className="radio" type="radio" value={false} defaultChecked name="would_do_again"/></div>
         <div>Yes <input className="radio" type="radio" value={true} name="would_do_again"/></div>
       </div>
+{
+  this.props.userClickedEdit ?
+  <input className="input" type="submit" value="Edit Journal Entry" onClick={ e => {this.props.editEntry(e, this.state)}} />
+  :
+  <input className="input" type="submit" value="New Journal Entry" onClick={ e => {this.props.newEntry(e, this.state)}}/>
+}
 
-      <input className="input" type="submit" value="New Journal Entry"/>
+
 
       <Link to="/saved-activities" >
         <div className="">cancel</div>
@@ -115,7 +128,7 @@ class Form extends Component {
   }
 
   render(){
-  console.log("in form, the category is",this.state.category)
+  console.log("in form",this.props.entryToBeChanged)
   // console.log("in form, the activityid is",this.props.activityId)
 
     return(

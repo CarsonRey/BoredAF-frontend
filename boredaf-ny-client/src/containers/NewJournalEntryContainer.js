@@ -8,7 +8,11 @@ const NewJournalEntryContainer = (props) => {
           newEntry={props.newJournalEntrySubmitHandler}
           user={props.user}
           activityId={props.activityId}
-          context="NewJournalEntryContainer" backToActivities={props.backToActivities}/>
+          context="NewJournalEntryContainer" backToActivities={props.backToActivities}
+          userClickedEdit={props.userClickedEdit}
+          entryToBeChanged={props.entryToBeChanged}
+          editEntry={props.editEntry}
+          />
     )
 }
 

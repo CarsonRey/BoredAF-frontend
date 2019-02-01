@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link , Redirect} from "react-router-dom";
+import { Link , Redirect } from "react-router-dom";
 
 class Journal extends Component {
-
 
   journalEntriesInfo = () => {
 
@@ -45,9 +44,11 @@ class Journal extends Component {
         </div>
 
         <div className="btn-position">
-          <Link className="link"  to="/">
+          <Link className="link" onClick={() => this.props.changeForm(entry)}  to="/new-journal-entry">
             <span className="journal-btn td btn-try tb-btn" >edit</span>
           </Link>
+          {/* When I click edit it should be brought to */}
+
           <Link  className="link"  to="/journal">
             <span className="journal-btn delete" onClick={() => this.props.deleteJournalEntry(entry, association, true)} >x</span>
           </Link>
@@ -71,7 +72,7 @@ class Journal extends Component {
         </div>
         <div className="container">
           <div className="info">
-              { this.props.user? this.journalEntriesInfo() : <Redirect to="login"/>}
+              { this.props.user ? this.journalEntriesInfo() : <Redirect to="login"/>}
           </div>
         </div>
 

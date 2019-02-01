@@ -8,13 +8,14 @@ class LoginForm extends React.Component {
   };
 
   handleChange = e => {
+
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
   render() {
-    console.log(this.props);
+  console.log(this.state)
     return (
       <div>
         <div className="formName">log in</div>

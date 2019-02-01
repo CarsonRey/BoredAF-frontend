@@ -8,7 +8,7 @@ import SignUpForm from './components/SignUpForm'
 import SavedActivities from './components/SavedActivities'
 import Journal from './components/Journal'
 import Logout from './components/Logout'
-import { Switch, Route, withRouter, Link } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import video from './bored1.mov'
 
 import './App.css';
@@ -19,7 +19,9 @@ class App extends Component {
     userLocalStorage: null,
     userSavedActivities: [],
     userInfo: null,
-    activityId: null
+    activityId: null,
+    userClickedEdit: false,
+    entryToBeChanged: {}
   }
 
   signupFormSubmitHandler = (e, userInfo) => {
@@ -40,9 +42,14 @@ class App extends Component {
 
   };
 
+  editEntrySubmitHandler = (e, form) => {
+    e.preventDefault();
+    this.editEntry(form)
+  }
+
   createEntry = (form) => {
     // debugger
-    fetch("http://localhost:3001/api/v1/journals", {
+    fetch("http://localhost:3000/api/v1/journals", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -69,6 +76,33 @@ class App extends Component {
     })
   }
 
+  editEntry = (form, id) => {
+    // debugger
+    fetch(`http://localhost:3000/api/v1/journals/${form.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        journal: {
+          date: form.date,
+          participants: form.participants,
+          learned: form.learned,
+          favorite_part: form.favorite_part,
+          least_favorite: form.least_favorite,
+          would_do_again: form.would_do_again,
+          user_id: this.state.userInfo.id,
+          activity_id: this.state.activityId
+        }
+      })
+    })
+    .then(resp=> resp.json())
+    .then(entry => {
+      this.fetchUser()
+      this.props.history.push("/journal");
+    })
+  }
+
   newActivitySubmitHandler = (e, form) => {
     e.preventDefault();
     let activity = {activity: form.activity, category: form.category, link: form.link }
@@ -78,7 +112,7 @@ class App extends Component {
   };
 
   newActivity = (activity, userWantsActivity) => {
-    fetch("http://localhost:3001/api/v1/selected_activity", {
+    fetch("http://localhost:3000/api/v1/selected_activity", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +128,7 @@ class App extends Component {
   addActivityToUserSaved = (activity, user) => {
     let body = {activity_id: activity.id , user_id: user.id}
 
-    fetch("http://localhost:3001/api/v1/user_activities", {
+    fetch("http://localhost:3000/api/v1/user_activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +146,7 @@ class App extends Component {
   }
 
   createUser = (userInfo) => {
-    fetch("http://localhost:3001/api/v1/users", {
+    fetch("http://localhost:3000/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -128,13 +162,13 @@ class App extends Component {
       localStorage.setItem("token", resp.jwt);
       this.setState({
         userLocalStorage: resp.user
-      });
+      },this.componentDidMount());
     });
   }
 
   getUser = (userInfo) => {
     // debugger
-    fetch("http://localhost:3001/api/v1/login", {
+    fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -153,7 +187,7 @@ class App extends Component {
       this.setState({
         userLocalStorage: resp.user
       }, this.componentDidMount());
-    });
+    }).catch(console.log);
   }
 
   updateUser = (user, activity) => {
@@ -172,7 +206,7 @@ class App extends Component {
 
   componentDidMount(){
     let token = localStorage.getItem("token");
-    fetch("http://localhost:3001/api/v1/current_user", {
+    fetch("http://localhost:3000/api/v1/current_user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -189,11 +223,11 @@ class App extends Component {
   }
 
   showUser = () => {
-    setTimeout(() => {this.fetchUser()}, 2000)
+    setTimeout(() => {this.fetchUser()}, 1)
   }
 
   fetchUser = () => {
-    fetch(`http://localhost:3001/api/v1/users/${this.state.userLocalStorage.id}`, {
+    fetch(`http://localhost:3000/api/v1/users/${this.state.userLocalStorage.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -213,7 +247,7 @@ class App extends Component {
     let journalCondition = fromJournal? !association.journaled : false
     let body = {tried: !association.tried, journaled: journalCondition}
 
-    fetch(`http://localhost:3001/api/v1/user_activities/${association.id}`, {
+    fetch(`http://localhost:3000/api/v1/user_activities/${association.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -228,7 +262,7 @@ class App extends Component {
   }
 
   deleteAssociation = (association, hasBeenJournaled) => {
-    fetch(`http://localhost:3001/api/v1/delete_association/${association.id}`, {method: "POST"})
+    fetch(`http://localhost:3000/api/v1/delete_association/${association.id}`, {method: "POST"})
     .then(resp => resp.json())
     .then(()=> {
       if (hasBeenJournaled){
@@ -242,7 +276,7 @@ class App extends Component {
   deleteJournalEntry = (journalEntry, association, requestIsFromSavedActivities) => {
     // if the request is coming from savedActivities, we will not run the changeTriedOrJournaled. i
 
-    fetch(`http://localhost:3001/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
+    fetch(`http://localhost:3000/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
     .then(resp => resp.json())
     .then(()=> {
       requestIsFromSavedActivities && this.changeTriedOrJournaled(association, true)
@@ -261,6 +295,13 @@ class App extends Component {
       userInfo: null,
       userLocalStorage: null
     }, this.props.history.push("/login"))
+  }
+
+  changeForm = (entry) => {
+    this.setState({
+      userClickedEdit: !this.state.userClickedEdit,
+      entryToBeChanged: entry
+    })
   }
 
   render() {
@@ -307,7 +348,11 @@ class App extends Component {
                   <NewJournalEntryContainer
                    user={this.state.userInfo}
                    newJournalEntrySubmitHandler={this.newJournalEntrySubmitHandler}
-                  activityId={this.state.activityId} />
+                  activityId={this.state.activityId}
+                  userClickedEdit={this.state.userClickedEdit}
+                  entryToBeChanged={this.state.entryToBeChanged}
+                  editEntry={this.editEntrySubmitHandler}
+                 />
                 )}
               />
           <Route
@@ -327,7 +372,9 @@ class App extends Component {
                 <Journal
                 user={this.state.userInfo}
                 deleteJournalEntry={this.deleteJournalEntry}
-                activityId={this.state.activityId} />
+                activityId={this.state.activityId}
+                changeForm={this.changeForm}
+               />
               )}
             />
           <Route

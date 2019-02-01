@@ -42,11 +42,11 @@ class SavedActivities extends Component {
 
           {association.journaled ?
             <Link className="link" onClick={()=> {this.props.setActivityIdForJournal(activity.id)}} to="/journal">
-            <span role="img" className="td btn-journal tb-btn">📖</span>
+            <span role="img" aria-label="book" className="td btn-journal tb-btn">📖</span>
             </Link>
               :
               <Link className="link" onClick={()=> {this.props.setActivityIdForJournal(activity.id)}} to="/new-journal-entry">
-              <span role="img" className="td btn-journal tb-btn">✏️</span>
+              <span role="img" aria-label="pencil" className="td btn-journal tb-btn">✏️</span>
               </Link>
 
 

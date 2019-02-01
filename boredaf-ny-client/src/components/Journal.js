@@ -4,8 +4,8 @@ import { Link , Redirect } from "react-router-dom";
 class Journal extends Component {
 
   journalEntriesInfo = () => {
-
-    return this.props.user.journals.length === 0 ? this.noJournalEntries() : this.returnJournalEntries()
+    let {user} = this.props
+    return user && user.journals.length === 0 ? this.noJournalEntries() : this.returnJournalEntries()
   }
 
   noJournalEntries = () => {
@@ -21,7 +21,7 @@ class Journal extends Component {
   }
 
   returnActivity = (activityId) => {
-    // debugger
+    debugger
     return this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
   }
 
@@ -32,6 +32,7 @@ class Journal extends Component {
 
   journalEntryHTML = (entry) => {
     let association = this.returnAssociation(entry)
+    debugger
     return   <div className="saved-row">
 
         <div className="journalEntry td data-activity" >
@@ -47,7 +48,6 @@ class Journal extends Component {
           <Link className="link" onClick={() => this.props.changeForm(entry)}  to="/new-journal-entry">
             <span className="journal-btn td btn-try tb-btn" >edit</span>
           </Link>
-          {/* When I click edit it should be brought to */}
 
           <Link  className="link"  to="/journal">
             <span className="journal-btn delete" onClick={() => this.props.deleteJournalEntry(entry, association, true)} >x</span>
@@ -61,6 +61,7 @@ class Journal extends Component {
     }
 
   render(){
+    // debugger
     console.log(this.props.user)
     return(
       <React.Fragment>
@@ -72,7 +73,7 @@ class Journal extends Component {
         </div>
         <div className="container">
           <div className="info">
-              { this.props.user ? this.journalEntriesInfo() : <Redirect to="login"/>}
+              { this.props.user ? this.journalEntriesInfo() : setTimeout(()=> <Redirect to="/login"/>, 100)}
           </div>
         </div>
 

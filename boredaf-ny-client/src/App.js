@@ -243,9 +243,10 @@ class App extends Component {
   }
 
   changeTriedOrJournaled = (association, fromJournal) => {
-    // debugger
-    let journalCondition = fromJournal? !association.journaled : false
-    let body = {tried: !association.tried, journaled: journalCondition}
+    debugger
+    let journalCondition = fromJournal? !association.journaled : association.journaled
+    let triedCondition = fromJournal ? association.tried : !association.tried
+    let body = {tried: triedCondition , journaled: journalCondition}
 
     fetch(`http://localhost:3000/api/v1/user_activities/${association.id}`, {
       method: "POST",
@@ -274,11 +275,12 @@ class App extends Component {
   }
 
   deleteJournalEntry = (journalEntry, association, requestIsFromSavedActivities) => {
-    // if the request is coming from savedActivities, we will not run the changeTriedOrJournaled. i
+
 
     fetch(`http://localhost:3000/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
     .then(resp => resp.json())
     .then(()=> {
+      // if the request is coming from savedActivities, we will not run the changeTriedOrJournaled.
       requestIsFromSavedActivities && this.changeTriedOrJournaled(association, true)
       this.fetchUser()
     })

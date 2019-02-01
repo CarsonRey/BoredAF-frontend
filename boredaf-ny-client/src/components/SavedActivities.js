@@ -33,6 +33,7 @@ class SavedActivities extends Component {
   }
 
   activityHTML = (association) => {
+    // debugger
     let activity = this.returnActivity(association.activity_id)[0]
     return <div key={activity}className="saved-row">
         <div className="td data-activity" >{activity.activity}</div>
@@ -40,7 +41,7 @@ class SavedActivities extends Component {
           <div className="td data-category">{activity.category}</div>
           <span role="img" alt={association.tried? "thumbs up": "thumbs down"} className="td btn-try tb-btn"  onClick={() => this.props.changeTried(association, false)}>{association.tried ? "👍" : "👎"}</span>
 
-          {association.journaled ?
+          {association.journaled && association.journaled !== null ?
             <Link className="link" onClick={()=> {this.props.setActivityIdForJournal(activity.id)}} to="/journal">
             <span role="img" aria-label="book" className="td btn-journal tb-btn">📖</span>
             </Link>
@@ -89,7 +90,7 @@ class SavedActivities extends Component {
         <div className="container">
 
           <div className="info">
-            {this.props.user ? this.savedActivityInfo() : <Redirect to="/login"/>}
+            {this.props.user ? this.savedActivityInfo() : setTimeout(()=> <Redirect to="/login"/>, 100)}
           </div>
         </div>
 

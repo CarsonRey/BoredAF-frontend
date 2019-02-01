@@ -76,7 +76,9 @@ constructor(props) {
   }
 
   returnActivityName = (activityId) => {
-    return this.props.user && this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
+
+      return this.props.user && this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
+
   }
 
   journalEntryFormHTML = () => {
@@ -122,10 +124,6 @@ constructor(props) {
   // set the state in app to the activity_id of the association that the user clicked
   // bring them to the route for newjournalEntry
   // that form will get the prop of user and a prop of the activity_id so that the form can search through the user, find that matching activity and display it for the form!
-
-  renderForm = () => {
-    return
-  }
 
   render(){
   console.log("in form",this.props.entryToBeChanged)

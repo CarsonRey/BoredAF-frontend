@@ -26,9 +26,10 @@ class ActivityContainer extends Component {
   }
 
   checkFilter = (filter) => {
+    console.log("CHECKING", filter)
     let varOrState = filter ? filter : this.state.filter
 
-    if (varOrState === null){
+    if (varOrState === 'all' || varOrState === null){
       return ''
     } else if (varOrState === 'free') {
       return '?price=0.0'

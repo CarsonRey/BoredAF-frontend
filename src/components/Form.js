@@ -22,7 +22,7 @@ constructor(props) {
     favorite_part: userClickedEdit ? entryToBeChanged.favorite_part : '',
     least_favorite: userClickedEdit ? entryToBeChanged.least_favorite : '',
     would_do_again: userClickedEdit ? entryToBeChanged.would_do_again : false,
-    id: userClickedEdit ? entryToBeChanged.id : null
+    id: userClickedEdit && entryToBeChanged !== {} ? entryToBeChanged.id : null
   }
 }
 

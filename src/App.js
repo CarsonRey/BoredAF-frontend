@@ -227,18 +227,19 @@ class App extends Component {
   }
 
   fetchUser = () => {
-    fetch(`http://localhost:3000/api/v1/users/${this.state.userLocalStorage.id}`, {
+    fetch(`http://localhost:3000/api/v1/users/${this.state.userLocalStorage && this.state.userLocalStorage.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       }
     })
     .then(resp =>resp.json()).then(user => {
-      // debugger
-      this.setState({
-        userInfo: user,
-        userSavedActivities: [...this.state.userSavedActivities, ...user.activities]
-      })
+      if (this.state.userLocalStorage){
+        this.setState({
+          userInfo: user,
+          userSavedActivities: [...this.state.userSavedActivities, ...user.activities]
+        })
+      }
     })
   }
 

@@ -79,7 +79,7 @@ class ActivityContainer extends Component {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({activity_id: activity.id, user_id: user.id})
+      body: JSON.stringify({activity_id: activity.id, user_id: user && user.id})
     })
     .then(resp => resp.json())
     .then(association => this.props.updateUser(association.user, activity))

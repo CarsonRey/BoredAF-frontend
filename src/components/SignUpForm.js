@@ -14,8 +14,8 @@ class SignUpForm extends React.Component {
   };
 
   render() {
-    console.log("The Username is", this.state.signupUsername);
-    console.log("The Password is", this.state.signupPassword);
+    // console.log("The Username is", this.state.signupUsername);
+    // console.log("The Password is", this.state.signupPassword);
     return (
       <div>
         <div className="formName">sign up</div>
@@ -40,7 +40,7 @@ class SignUpForm extends React.Component {
           <br/>
           <input
             className="input"
-            type="text"
+            type="password"
             name="signupPassword"
             placeholder="password"
             value={this.state.signupPassword}

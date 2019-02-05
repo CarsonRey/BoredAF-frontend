@@ -7,10 +7,14 @@ class Filter extends Component {
   }
 
   changeDropdown = (e) => {
-    e.target.parentElement.classList.toggle("show")
     this.setState({
       dropdown: e.target.value
-    }, this.props.changeFilter(e.target.value.toLowerCase()))
+    })
+  }
+
+  changeFilter = (e) => {
+    e.target.parentElement.classList.toggle("show")
+    this.props.changeFilter(this.state.dropdown.toLowerCase())
   }
 
   render(){
@@ -26,7 +30,7 @@ class Filter extends Component {
               <i className="fa fa-caret-down"></i>
             </button>
             <div className="dropdown-content" id="myDropdown">
-              {options.map((option) => <button key={option} className="tablinks" value={option} onClick={this.changeDropdown} >{option}</button>)}
+              {options.map((option) => <button key={option} className="tablinks" value={option} onMouseEnter={this.changeDropdown} onClick={this.changeFilter} >{option}</button>)}
             </div>
           </div>
           {/* <button className="tablinks" onClick={(event) => console.log(event.target.value)} value="nearby">Nearby</button> */}

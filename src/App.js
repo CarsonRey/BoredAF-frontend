@@ -309,8 +309,8 @@ class App extends Component {
   }
 
   render() {
-    console.log("userLocalStorage", this.state.userLocalStorage )
-    console.log("userInfo", this.state.userInfo )
+    // console.log("userLocalStorage", this.state.userLocalStorage )
+    // console.log("userInfo", this.state.userInfo )
     return (
       <div className="App">
         <video className="myVideo" loop autoPlay muted >

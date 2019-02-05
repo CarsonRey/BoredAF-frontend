@@ -22,21 +22,24 @@ class ActivityContainer extends Component {
   changeFilter = (filter) => {
     this.setState({
       filter: filter === 'all' ? null : filter
-    }, this.getNewActivity())
+    }, this.getNewActivity(filter))
   }
 
-  checkFilter = () => {
-    if (this.state.filter === null){
+  checkFilter = (filter) => {
+    let varOrState = filter ? filter : this.state.filter
+
+    if (varOrState === null){
       return ''
-    } else if (this.state.filter === 'free') {
+    } else if (varOrState === 'free') {
       return '?price=0.0'
     } else {
-      return `?type=${this.state.filter}`
+      return `?type=${varOrState}`
     }
   }
 
-  getNewActivity(){
-    fetch(`https://www.boredapi.com/api/activity${this.checkFilter()}`)
+  getNewActivity(filter){
+
+    fetch(`https://www.boredapi.com/api/activity${this.checkFilter(filter)}`)
     .then(response => response.json())
     .then(activity => {
 
@@ -101,7 +104,7 @@ class ActivityContainer extends Component {
   }
 
   render(){
-    console.log(" in activitycontainer activity is", this.state.activity)
+    // console.log("in activitycontainer activity type is", this.state.activity.type)
     // console.log("bye", this.state.declinedActivities)
     // console.log("saved", this.state.savedActivities)
     // console.log("in ActivityContainer filter is", this.state.filter)

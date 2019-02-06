@@ -47,7 +47,7 @@ class SignUpForm extends React.Component {
             onChange={this.handleChange}
           />
           <br/>
-          <input className="input" type="submit" value="Sign Up"/>
+          <input className="input submit" type="submit" value="Sign Up"/>
         </form>
         {!this.props.user && <Link className="link" to="/">
           <div className="navitem swipe">back to swiping!</div>

@@ -575,14 +575,35 @@ font-size: 15px;
   animation: rainbow 6s infinite;
 }
 
+.form-title{
+  border: .5px solid white;
+  border-radius: 10px;
+  width: 20%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
 .form .input, select {
   width: 70%;
   margin: auto;
-  color:dimgrey;
+  color: dimgrey;
   font-family: sans-serif;
   font-weight: bold;
   font-size: 15px;
   border-radius: 2px;
+}
+
+.form .submit {
+  font-family: Palatino;
+  padding: 6px 0px;
+  color: white;
+  background-color: inherit;
+  border: .5px solid white;
+  border-radius: 2px;
+}
+
+.submit:hover{
+  background-color: lightgrey;
 }
 
 .form label {

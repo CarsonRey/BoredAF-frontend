@@ -36,7 +36,7 @@ constructor(props) {
   newActivityFormHTML = () => {
     const options = ["Please Select", "Education", "Recreational", "Social", "DIY", "Charity", "Cooking", "Relaxation", "Music", "Busywork"]
     return   <form onSubmit={ e => {this.props.newActivity(e, this.state)}} onChange={(e)=> {this.handleChange(e)}} className="form">
-      <div className="">new activity</div>
+      <div className="form-title">new activity</div>
       <label htmlFor="activity">Activity </label>
         <p>Please start the activity with a command/ verb</p>
       <input  name="activity" className="input" type="text"/> <br/>
@@ -66,7 +66,7 @@ constructor(props) {
         <div>Yes <input className="radio" type="radio" value={true} name="free"/></div>
       </div> <br/> */}
 
-      <input className="input" type="submit" value="Add Activity"/> <br/>
+      <input className="input submit" type="submit" value="Add Activity"/> <br/>
 
       <Link className="link" to="/" >
         <div className="">cancel</div>
@@ -106,9 +106,9 @@ constructor(props) {
       </div>
 {
   this.props.userClickedEdit ?
-  <input className="input" type="submit" value="Edit Journal Entry" onClick={ e => {this.props.editEntry(e, this.state)}} />
+  <input className="input submit" type="submit" value="Edit Journal Entry" onClick={ e => {this.props.editEntry(e, this.state)}} />
   :
-  <input className="input" type="submit" value="New Journal Entry" onClick={ e => {this.props.newEntry(e, this.state)}}/>
+  <input className="input submit" type="submit" value="New Journal Entry" onClick={ e => {this.props.newEntry(e, this.state)}}/>
 }
 
 

@@ -85,7 +85,7 @@ class ActivityContainer extends Component {
       body: JSON.stringify({activity_id: activity.id, user_id: user && user.id})
     })
     .then(resp => resp.json())
-    .then(association => this.props.updateUser(association.user, activity))
+    .then(association => this.props.updateUser(association.user, activity)).catch(console.log)
   }
 
   declineActivity = () => {

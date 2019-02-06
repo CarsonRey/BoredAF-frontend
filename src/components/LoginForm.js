@@ -48,7 +48,7 @@ class LoginForm extends React.Component {
             onChange={this.handleChange}
           />
           <br/>
-          <input className="input" type="submit" value="Log In"/>
+          <input className="input submit" type="submit" value="Log In"/>
           {/* <button>Log In</button> */}
         </form>
         {!this.props.user && <Link className="link" to="/">

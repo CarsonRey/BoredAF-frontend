@@ -26,7 +26,6 @@ class ActivityContainer extends Component {
   }
 
   checkFilter = (filter) => {
-    console.log("CHECKING", filter)
     let varOrState = filter ? filter : this.state.filter
 
     if (varOrState === 'all' || varOrState === null){
@@ -123,6 +122,7 @@ class ActivityContainer extends Component {
            activity={this.state.activity}
            newActivityForm={this.props.newActivityForm} makeChoice={this.makeChoice}/>
         </div>
+
         </React.Fragment>
       </React.Fragment>
     )

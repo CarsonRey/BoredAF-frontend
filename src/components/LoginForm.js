@@ -51,6 +51,9 @@ class LoginForm extends React.Component {
           <input className="input" type="submit" value="Log In"/>
           {/* <button>Log In</button> */}
         </form>
+        {!this.props.user && <Link className="link" to="/">
+          <div className="navitem swipe">back to swiping!</div>
+        </Link>}
       </div>
     );
   }

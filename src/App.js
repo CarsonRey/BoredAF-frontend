@@ -326,6 +326,7 @@ class App extends Component {
               render={() => (
                 <LoginForm
                   loginSubmitHandler={this.loginSubmitHandler}
+                  user={this.state.userLocalStorage}
                 />
               )}
             />
@@ -334,6 +335,7 @@ class App extends Component {
               render={() => (
                 <SignUpForm
                   signupFormSubmitHandler={this.signupFormSubmitHandler}
+                  user={this.state.userLocalStorage}
                 />
               )}
             />

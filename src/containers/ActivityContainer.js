@@ -63,7 +63,7 @@ class ActivityContainer extends Component {
   }
 
   findOrCreateActivity = (activity, userWantsActivity) => {
-    fetch("http://localhost:3000/api/v1/selected_activity", {
+    fetch("https://boredaf-api.herokuapp.com/api/v1/selected_activity", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ class ActivityContainer extends Component {
   }
 
   addActivityToUserSaved = (activity, user) => {
-    fetch("http://localhost:3000/api/v1/user_activities", {
+    fetch("https://boredaf-api.herokuapp.com/api/v1/user_activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -49,7 +49,7 @@ class App extends Component {
 
   createEntry = (form) => {
     // debugger
-    fetch("http://localhost:3000/api/v1/journals", {
+    fetch("https://boredaf-api.herokuapp.com/api/v1/journals", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -78,7 +78,7 @@ class App extends Component {
 
   editEntry = (form, id) => {
     // debugger
-    fetch(`http://localhost:3000/api/v1/journals/${form.id}`, {
+    fetch(`https://boredaf-api.herokuapp.com/api/v1/journals/${form.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -112,7 +112,7 @@ class App extends Component {
   };
 
   newActivity = (activity, userWantsActivity) => {
-    fetch("http://localhost:3000/api/v1/selected_activity", {
+    fetch("https://boredaf-api.herokuapp.com/api/v1/selected_activity", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -128,7 +128,7 @@ class App extends Component {
   addActivityToUserSaved = (activity, user) => {
     let body = {activity_id: activity.id , user_id: user.id}
 
-    fetch("http://localhost:3000/api/v1/user_activities", {
+    fetch("https://boredaf-api.herokuapp.com/api/v1/user_activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -146,7 +146,7 @@ class App extends Component {
   }
 
   createUser = (userInfo) => {
-    fetch("http://localhost:3000/api/v1/users", {
+    fetch("https://boredaf-api.herokuapp.com/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -168,7 +168,7 @@ class App extends Component {
 
   getUser = (userInfo) => {
     // debugger
-    fetch("http://localhost:3000/api/v1/login", {
+    fetch("https://boredaf-api.herokuapp.com/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -206,7 +206,7 @@ class App extends Component {
 
   componentDidMount(){
     let token = localStorage.getItem("token");
-    fetch("http://localhost:3000/api/v1/current_user", {
+    fetch("https://boredaf-api.herokuapp.com/api/v1/current_user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -227,7 +227,7 @@ class App extends Component {
   }
 
   fetchUser = () => {
-    fetch(`http://localhost:3000/api/v1/users/${this.state.userLocalStorage && this.state.userLocalStorage.id}`, {
+    fetch(`https://boredaf-api.herokuapp.com/api/v1/users/${this.state.userLocalStorage && this.state.userLocalStorage.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -249,7 +249,7 @@ class App extends Component {
     let triedCondition = fromJournal ? association.tried : !association.tried
     let body = {tried: triedCondition , journaled: journalCondition}
 
-    fetch(`http://localhost:3000/api/v1/user_activities/${association.id}`, {
+    fetch(`https://boredaf-api.herokuapp.com/api/v1/user_activities/${association.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -264,7 +264,7 @@ class App extends Component {
   }
 
   deleteAssociation = (association, hasBeenJournaled) => {
-    fetch(`http://localhost:3000/api/v1/delete_association/${association.id}`, {method: "POST"})
+    fetch(`https://boredaf-api.herokuapp.com/api/v1/delete_association/${association.id}`, {method: "POST"})
     .then(resp => resp.json())
     .then(()=> {
       if (hasBeenJournaled){
@@ -278,7 +278,7 @@ class App extends Component {
   deleteJournalEntry = (journalEntry, association, requestIsFromSavedActivities) => {
 
 
-    fetch(`http://localhost:3000/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
+    fetch(`https://boredaf-api.herokuapp.com/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
     .then(resp => resp.json())
     .then((resp)=> {
       // debugger

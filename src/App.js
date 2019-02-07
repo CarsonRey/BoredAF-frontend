@@ -205,21 +205,23 @@ class App extends Component {
 
 
   componentDidMount(){
-    let token = localStorage.getItem("token");
-    fetch("https://boredaf-api.herokuapp.com/api/v1/current_user", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        'Action': "application/json",
-        'Authorization': `${token}`
-      }
+    if (localStorage.length > 0){
+      let token = localStorage.getItem("token");
+      fetch("https://boredaf-api.herokuapp.com/api/v1/current_user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          'Action': "application/json",
+          'Authorization': `${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(resp => {
+        this.setState({
+        userLocalStorage: resp.user
+      }, this.showUser())
     })
-    .then(response => response.json())
-    .then(resp => {
-      this.setState({
-      userLocalStorage: resp.user
-    }, this.showUser())
-  })
+    }
   }
 
   showUser = () => {

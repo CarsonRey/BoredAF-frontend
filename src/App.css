@@ -151,7 +151,7 @@ html,body {padding:0; margin:0; }
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  max-width: 713px;
+  max-width: 49.9%;
   height: 50px;
   overflow-x: scroll;
   white-space: nowrap;

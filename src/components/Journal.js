@@ -77,7 +77,7 @@ class Journal extends Component {
         <div className="container">
           <div className="info">
               {/* { this.props.user ? this.journalEntriesInfo() : setTimeout(()=> <Redirect to="/login"/>, 100)} */}
-              { localStorage.length ? this.journalEntriesInfo() : <Redirect to="/login"/>}
+              { localStorage.bored ? this.journalEntriesInfo() : <Redirect to="/login"/>}
           </div>
         </div>
 

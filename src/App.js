@@ -160,6 +160,7 @@ class App extends Component {
       })
     }).then(resp => resp.json()).then(resp => {
       localStorage.setItem("token", resp.jwt);
+      localStorage.setItem("bored", "af");
       this.setState({
         userLocalStorage: resp.user
       },this.componentDidMount());
@@ -184,6 +185,7 @@ class App extends Component {
     .then(resp => resp.json())
     .then(resp => {
       localStorage.setItem("token", resp.jwt);
+      localStorage.setItem("bored", "af");
       this.setState({
         userLocalStorage: resp.user
       }, this.componentDidMount());
@@ -205,7 +207,7 @@ class App extends Component {
 
 
   componentDidMount(){
-    if (localStorage.length > 0){
+    if (localStorage.bored){
       let token = localStorage.getItem("token");
       fetch("https://boredaf-api.herokuapp.com/api/v1/current_user", {
         method: "GET",

@@ -24,7 +24,6 @@ class Journal extends Component {
   }
 
   returnActivity = (activityId) => {
-    // debugger
     return this.props.user.activities.filter(activity => activity.id === activityId)[0].activity
   }
 

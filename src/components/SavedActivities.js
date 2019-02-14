@@ -64,9 +64,10 @@ class SavedActivities extends Component {
       if (window.confirm("Deleting an activity with that has been journaled will also delete it's journal entry, are you sure you want to continue?")) {
        this.props.delete(association, hasBeenJournaled)
        }
-    } else{
-      this.props.delete(association, hasBeenJournaled)
     }
+    // else{
+    //   this.props.delete(association, hasBeenJournaled)
+    // }
 
   }
 

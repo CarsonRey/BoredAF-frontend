@@ -191,7 +191,7 @@ class App extends Component {
         localStorage.setItem("bored", "af")
         localStorage.setItem("token", resp.jwt);
       }
-      
+
 
       this.setState({
         userLocalStorage: resp.user
@@ -281,21 +281,21 @@ class App extends Component {
     .then(()=> {
       if (hasBeenJournaled){
         let journalEntry = this.state.userInfo.journals.filter(journal => journal.activity_id === association.activity_id)[0]
-        this.deleteJournalEntry(journalEntry, association, true)
+        this.deleteJournalEntry(journalEntry, association, false)
       }
       this.fetchUser()
     })
   }
 
-  deleteJournalEntry = (journalEntry, association, requestIsFromSavedActivities) => {
-
+  deleteJournalEntry = (journalEntry, association, fromJournal) => {
+// debugger
 
     fetch(`https://boredaf-api.herokuapp.com/api/v1/delete_journal_entry/${journalEntry.id}`, {method: "POST"})
     .then(resp => resp.json())
     .then((resp)=> {
       // debugger
       // if the request is coming from savedActivities, we will not run the changeTriedOrJournaled.
-      requestIsFromSavedActivities && this.changeTriedOrJournaled(association, true)
+      fromJournal && this.changeTriedOrJournaled(association, true)
       this.fetchUser()
     })
   }

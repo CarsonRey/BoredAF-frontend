@@ -209,7 +209,7 @@ class App extends Component {
   }
 
   newActivityForm = () => {
-    this.props.history.push("/new-activity")
+     this.props.history.push("/new-activity")
   }
 
 

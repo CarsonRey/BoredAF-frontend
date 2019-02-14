@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Redirect } from "react-router-dom";
 class Choice extends Component {
 
   render(){
@@ -13,8 +13,8 @@ class Choice extends Component {
         </div>
 
         <div className="settings popup">
-          <div className="popuptext" id="myPopup">Add A New <br/> Activity!</div>
-          <div onClick={() => this.props.newActivityForm()}  className="plus choice-item" onMouseEnter={(e)=> e.target.previousElementSibling.classList.toggle("showPop")} onMouseLeave={(e)=> e.target.previousElementSibling.classList.toggle("showPop")}>
+          {localStorage.bored ? <div className="popuptext" id="myPopup">Add A New <br/> Activity!</div> : <div className="popuptext" id="myPopup">Sign in to <br/> add activities!</div>}
+          <div onClick={() => localStorage.bored ? this.props.newActivityForm() : <Redirect to="/login"/>}  className="plus choice-item" onMouseEnter={(e)=> e.target.previousElementSibling.classList.toggle("showPop")} onMouseLeave={(e)=> e.target.previousElementSibling.classList.toggle("showPop")}>
           </div>
         </div>
 

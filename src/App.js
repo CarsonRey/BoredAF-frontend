@@ -305,7 +305,7 @@ class App extends Component {
   }
 
   logout = () => {
-    localStorage.removeItem('token')
+    localStorage.clear()
 
     this.setState({
       userInfo: null,

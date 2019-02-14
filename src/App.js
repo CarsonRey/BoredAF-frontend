@@ -186,11 +186,13 @@ class App extends Component {
     })
     .then(resp => resp.json())
     .then(resp => {
-      if (resp !== "noUser"){
-        localStorage.setItem("bored", "af");
-      }
       localStorage.clear()
-      localStorage.setItem("token", resp.jwt);
+      if (resp !== "noUser"){
+        localStorage.setItem("bored", "af")
+        localStorage.setItem("token", resp.jwt);
+      }
+      
+
       this.setState({
         userLocalStorage: resp.user
       }, this.componentDidMount());

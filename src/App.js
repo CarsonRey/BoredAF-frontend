@@ -121,6 +121,7 @@ class App extends Component {
     })
     .then(resp => resp.json())
     .then(activity => {
+      console.log("the activity", activity, "has been added or found")
       userWantsActivity && this.addActivityToUserSaved(activity, this.state.userInfo)
     })
   }
@@ -136,7 +137,10 @@ class App extends Component {
       body: JSON.stringify(body)
     })
     .then(resp => resp.json())
-    .then(association => this.fetchUser())
+    .then(association => {
+      console.log("the association has been made")
+      this.fetchUser()
+    })
   }
 
   setActivityIdForJournal = (activityId) => {

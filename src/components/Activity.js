@@ -24,17 +24,14 @@ class Activity extends Component {
 
 
   render(){
-    // const suggest = ["Do you want to...?", "How about you...? ", "Why don't you try to...? ", "Give... a go!"]
-// this.sample(suggest).split("...").join(`
+    let {activity} = this.props
     return(
-      <div draggable="true" className="activity">
-        <h3>{this.props.activity.activity} <br/>
-          <a href={this.props.activity.link && this.props.activity.link} target="_blank" rel="noopener noreferrer">{this.props.activity.link && this.props.activity.link}</a>
-        </h3>
-        {/* <h5>{this.props.activity.type}</h5>
-        <h5>{this.props.activity.participants}</h5> */}
-
-        {/* <h5>{this.props.activity.price === 0 ? "Free" : "May cost some money"}</h5> */}
+      <div className="center-activity">
+        <div draggable="true" className="activity">
+          <h3 className={activity.activity && activity.activity.split("").length > 30 ? "longActivity" : "shortActivity"}>{activity.activity}<br/>
+            <a href={activity.link && activity.link} target="_blank" rel="noopener noreferrer">{activity.link && activity.link}</a>
+          </h3>
+        </div>
       </div>
     )
   }

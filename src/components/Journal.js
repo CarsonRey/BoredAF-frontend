@@ -10,7 +10,7 @@ class Journal extends Component {
 
   noJournalEntries = () => {
     return <h2 className="noneMessage">
-      You haven't written any entries yet! Check your <Link to="/saved-activities">saved activities</Link> to journal about a specific activity.
+      You haven't written any entries yet! Check your <Link className="link navitem non-nav" to="/saved-activities">saved activities</Link> to journal about a specific activity.
     </h2>
   }
 
